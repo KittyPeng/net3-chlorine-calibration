@@ -1,0 +1,37 @@
+{
+  "weighting": "none \u2014 this step compares raw simulated fields, no ensemble is weighted",
+  "n_candidates": 256,
+  "arms": {
+    "legacy": "initial_quality assigned raw (superseded), tolerance 0.01; its output is what the pre-correction cache stored and the log quoted as mg/L",
+    "corrected": "current configuration: mg/L -> kg/m^3 on the way in, kg/m^3 -> mg/L on the way out, plus the CHOSEN strict tolerance 1e-05 mg/L (written verbatim to the .inp; EPANET's default is 0.01 mg/L)",
+    "units_only": "units corrected but tolerance left at the 0.01 mg/L default \u2014 the units fixed and the numerical resolution coarsened 1000x, kept as the counterfactual"
+  },
+  "legacy_tolerance_mg_L": 0.01,
+  "corrected_tolerance_mg_L": 1e-05,
+  "tolerance_note": "EPANET's TOLERANCE is written to the .inp verbatim and read in the file's quality unit, so both numbers are mg/L. 1e-5 mg/L is 1000x stricter than EPANET's 0.01 default: a chosen setting that holds the tolerance/source ratio of the superseded run fixed, NOT a unit conversion",
+  "C_MIN_mg_L": 0.2,
+  "comparisons": {
+    "corrected_vs_legacy": {
+      "max_abs_diff_mg_L": 1.1920928955078125e-07,
+      "max_rel_diff": 2.3267407074338785e-07,
+      "median_rel_diff": 0.0,
+      "max_rel_diff_below_threshold": 2.2898239308583086e-07,
+      "n_points_below_threshold_ref": 79391,
+      "n_points_below_threshold_other": 79391,
+      "n_cells_with_different_hours_below": 0,
+      "n_cells": 23552
+    },
+    "units_only_vs_legacy": {
+      "max_abs_diff_mg_L": 0.02086782455444336,
+      "max_rel_diff": 0.17827975992069292,
+      "median_rel_diff": 0.0035390135204334235,
+      "max_rel_diff_below_threshold": 0.17827975992069292,
+      "n_points_below_threshold_ref": 79391,
+      "n_points_below_threshold_other": 79301,
+      "n_cells_with_different_hours_below": 440,
+      "n_cells": 23552
+    }
+  },
+  "verdict": "the correction is a relabelling: the reported field is unchanged to floating point",
+  "coefficients_note": "k_b (1/time) and k_w (length/time) carry no mass unit and were never affected; step13 arms 1-3 verify them against an analytic solution and step13 arm 4 pins the concentration unit against WNTR's own to_si/from_si"
+}

@@ -1,0 +1,17 @@
+# pip-only mirror of environment.yml, for a venv instead of conda.
+# Pins match the environment that produced Net3/baseline_cache/ (see cache_manifest.json).
+# Requires Python 3.12 or newer: wntr's EPANET loader uses importlib.resources above 3.11 and
+# pkg_resources at or below it, so older Pythons additionally need setuptools<81.
+
+# Numerical stack — pinned, results-affecting
+numpy==2.4.2
+scipy==1.17.1
+pandas==2.3.3
+matplotlib==3.10.8
+
+# Water network modelling (wheel ships the EPANET binary)
+wntr==1.4.0
+
+# Notebooks (exploration only; the pipeline is plain scripts)
+jupyterlab>=4.5
+ipywidgets>=8.0

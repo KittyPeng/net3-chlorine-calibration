@@ -1,0 +1,56 @@
+{
+  "weighting": "informal_glue",
+  "weighting_role": "comparator; SUPERSEDED by step4d, which reports the primary formal rule over 30 noise realisations and both displacement directions",
+  "primary_weighting_elsewhere": "formal_censored",
+  "n_noise_realisations": 1,
+  "behavioural_count": 3359,
+  "retention": 0.41,
+  "rmse_min": 0.0972,
+  "rows": [
+    {
+      "group": "old",
+      "orig_mid": -0.85,
+      "disp_mid": -1.3753,
+      "disp_range": [
+        -2.0253,
+        -0.7253
+      ],
+      "true": -1.0,
+      "beh_mean": -1.2185,
+      "beh_sd": 0.3287,
+      "sd_retained": 0.876,
+      "move_toward_truth_priorSD": 0.418,
+      "gap_closed_frac": 0.418
+    },
+    {
+      "group": "avg",
+      "orig_mid": -0.12,
+      "disp_mid": -0.1462,
+      "disp_range": [
+        -0.2262,
+        -0.0662
+      ],
+      "true": -0.1,
+      "beh_mean": -0.1272,
+      "beh_sd": 0.0407,
+      "sd_retained": 0.881,
+      "move_toward_truth_priorSD": 0.412,
+      "gap_closed_frac": 0.412
+    },
+    {
+      "group": "new",
+      "orig_mid": -0.0525,
+      "disp_mid": -0.0774,
+      "disp_range": [
+        -0.1249,
+        -0.0299
+      ],
+      "true": -0.05,
+      "beh_mean": -0.0556,
+      "beh_sd": 0.0175,
+      "sd_retained": 0.639,
+      "move_toward_truth_priorSD": 0.796,
+      "gap_closed_frac": 0.796
+    }
+  ]
+}

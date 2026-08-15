@@ -1,0 +1,162 @@
+{
+  "weighting": "informal_glue",
+  "weighting_role": "comparator only \u2014 a threshold sweep is a property of behavioural weighting; the primary formal likelihood has no threshold, so no row here may be quoted as a headline result",
+  "primary_weighting_elsewhere": "formal_censored",
+  "thresholds": [
+    0.107,
+    0.11,
+    0.12
+  ],
+  "rows": [
+    {
+      "threshold": 0.107,
+      "count": 4786,
+      "retention": 0.5842,
+      "sd_above_floor": 1.7,
+      "old": {
+        "mean": -1.011452874228234,
+        "sd": 0.2667853616521573,
+        "sd_retained": 0.7109012324571908
+      },
+      "avg": {
+        "mean": -0.11697648555342915,
+        "sd": 0.04240416419979771,
+        "sd_retained": 0.9180770855817861
+      },
+      "new": {
+        "mean": -0.04919801836966472,
+        "sd": 0.024188948715919346,
+        "sd_retained": 0.8820313296347423
+      },
+      "band_node15": 0.1008,
+      "band_node107": 0.0762,
+      "risk_nonzero_nodes": 24,
+      "top_risk": [
+        [
+          "131",
+          0.974
+        ],
+        [
+          "129",
+          0.5
+        ],
+        [
+          "127",
+          0.466
+        ],
+        [
+          "141",
+          0.464
+        ],
+        [
+          "139",
+          0.458
+        ],
+        [
+          "15",
+          0.445
+        ]
+      ]
+    },
+    {
+      "threshold": 0.11,
+      "count": 5668,
+      "retention": 0.6919,
+      "sd_above_floor": 2.42,
+      "old": {
+        "mean": -0.9955956620014443,
+        "sd": 0.28437939714958793,
+        "sd_retained": 0.7577839453675296
+      },
+      "avg": {
+        "mean": -0.11735329850023402,
+        "sd": 0.04367030575410121,
+        "sd_retained": 0.9454898543521348
+      },
+      "new": {
+        "mean": -0.05124373589510464,
+        "sd": 0.02541207591228087,
+        "sd_retained": 0.9266317180182673
+      },
+      "band_node15": 0.1121,
+      "band_node107": 0.0788,
+      "risk_nonzero_nodes": 24,
+      "top_risk": [
+        [
+          "131",
+          0.967
+        ],
+        [
+          "129",
+          0.5
+        ],
+        [
+          "127",
+          0.466
+        ],
+        [
+          "141",
+          0.463
+        ],
+        [
+          "139",
+          0.458
+        ],
+        [
+          "15",
+          0.435
+        ]
+      ]
+    },
+    {
+      "threshold": 0.12,
+      "count": 7084,
+      "retention": 0.8647,
+      "sd_above_floor": 4.85,
+      "old": {
+        "mean": -0.9431167320917864,
+        "sd": 0.32203838716901423,
+        "sd_retained": 0.8581336131757997
+      },
+      "avg": {
+        "mean": -0.11958780578984016,
+        "sd": 0.04545773973756171,
+        "sd_retained": 0.984188935283745
+      },
+      "new": {
+        "mean": -0.05291024034631133,
+        "sd": 0.026884595156512932,
+        "sd_retained": 0.9803259947789589
+      },
+      "band_node15": 0.1419,
+      "band_node107": 0.0816,
+      "risk_nonzero_nodes": 24,
+      "top_risk": [
+        [
+          "131",
+          0.944
+        ],
+        [
+          "129",
+          0.5
+        ],
+        [
+          "127",
+          0.463
+        ],
+        [
+          "139",
+          0.458
+        ],
+        [
+          "141",
+          0.455
+        ],
+        [
+          "15",
+          0.406
+        ]
+      ]
+    }
+  ]
+}

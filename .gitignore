@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+
+# Regenerable prediction caches. Too large for a git repository and reproducible from the
+# scripts: see the README. The JSON result artifacts ARE tracked, because the paper quotes them.
+Net3/baseline_cache/*.npy
+Net3/baseline_cache/*.npz
+
+# EPANET scratch files written next to the scripts
+temp.inp
+temp.rpt
+temp.bin

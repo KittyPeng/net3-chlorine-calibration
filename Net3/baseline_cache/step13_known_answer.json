@@ -1,0 +1,114 @@
+{
+  "purpose": "Priority-2 #7 known-answer test: confirm coefficients are realised as intended",
+  "geometry": {
+    "length_m": 1000.0,
+    "diameter_m": 0.3,
+    "demand_m3_s": 0.05,
+    "C0_mg_L": 1.0,
+    "duration_h": 24
+  },
+  "bulk_arm": {
+    "analytic": "C = C0 exp(k_b t_res)",
+    "tolerance_rel": 0.001,
+    "rows": [
+      {
+        "kb_per_day": -0.5,
+        "t_res_h": 0.3926990758470519,
+        "velocity_m_s": 0.7073553131710614,
+        "epanet_c": 0.99184550344944,
+        "analytic_c": 0.9918521444427253,
+        "rel_error": 6.6955476403398945e-06
+      },
+      {
+        "kb_per_day": -1.0,
+        "t_res_h": 0.3926990758470519,
+        "velocity_m_s": 0.7073553131710614,
+        "epanet_c": 0.98374392837286,
+        "analytic_c": 0.9837706764356328,
+        "rel_error": 2.7189327160797863e-05
+      },
+      {
+        "kb_per_day": -2.0,
+        "t_res_h": 0.3926990758470519,
+        "velocity_m_s": 0.7073553131710614,
+        "epanet_c": 0.9676991612650454,
+        "analytic_c": 0.9678047438146223,
+        "rel_error": 0.00010909488742613172
+      }
+    ],
+    "worst_rel_error": 0.00010909488742613172,
+    "pass": true
+  },
+  "wall_arm": {
+    "note": "EPANET first-order wall rate = k_b + (4/D)(k_w k_f)/(k_w + k_f), so k_w alone does not fix the answer; monotonicity and the k_f-free bound are what can be asserted",
+    "kb_per_day": -0.5,
+    "rows": [
+      {
+        "kw_per_day": 0.0,
+        "epanet_c": 0.99184550344944,
+        "extra_decay_vs_kw0": 0.0,
+        "kf_free_lower_bound_c": 0.9918521444427253,
+        "bound_applies": false,
+        "above_bound": null
+      },
+      {
+        "kw_per_day": -0.1,
+        "epanet_c": 0.9712320752441883,
+        "extra_decay_vs_kw0": 0.020613428205251694,
+        "kf_free_lower_bound_c": 0.9704476238209063,
+        "bound_applies": true,
+        "above_bound": true
+      },
+      {
+        "kw_per_day": -0.5,
+        "epanet_c": 0.9057185961864889,
+        "extra_decay_vs_kw0": 0.08612690726295114,
+        "kf_free_lower_bound_c": 0.8893501003094862,
+        "bound_applies": true,
+        "above_bound": true
+      },
+      {
+        "kw_per_day": -1.0,
+        "epanet_c": 0.8490339969284832,
+        "extra_decay_vs_kw0": 0.14281150652095675,
+        "kf_free_lower_bound_c": 0.7974410352914919,
+        "bound_applies": true,
+        "above_bound": true
+      },
+      {
+        "kw_per_day": -2.0,
+        "epanet_c": 0.7791802054271102,
+        "extra_decay_vs_kw0": 0.2126652980223298,
+        "kf_free_lower_bound_c": 0.6411360890125971,
+        "bound_applies": true,
+        "above_bound": true
+      }
+    ],
+    "kw0_matches_pure_bulk": true,
+    "monotone_in_kw": true,
+    "within_bound": true
+  },
+  "unit_conversion_arm": {
+    "pass": true,
+    "seconds_per_day": 86400,
+    "per_day_to_per_second_of_minus_1": -1.1574074074074073e-05
+  },
+  "concentration_unit_arm": {
+    "pass": true,
+    "note": "WNTR stores concentration in kg/m^3 whatever inpfile_units says; checked against WNTR's own to_si/from_si, not against our assumption about them",
+    "wntr_to_si_of_1_mg_L": 0.001,
+    "wntr_from_si_of_1_kg_m3": 1000.0,
+    "quality_tolerance_mg_L": 1e-05,
+    "tolerance_relative_to_1_mg_L_source": 1e-05
+  },
+  "epanet_input_arm": {
+    "pass": true,
+    "note": "read off the .inp WNTR actually writes. Concentrations are converted on write, the solver tolerance is not: EPANET receives TOLERANCE in the file's quality unit, so QUALITY_TOLERANCE is mg/L, not kg/m^3, and it is a chosen setting 1000x stricter than the EPANET default rather than a converted one",
+    "inp_quality_unit": "mg/L",
+    "inp_source_quality": 1.0,
+    "inp_tolerance": 1e-05,
+    "epanet_default_tolerance_mg_L": 0.01,
+    "tolerance_over_source": 1e-05
+  },
+  "all_pass": true
+}

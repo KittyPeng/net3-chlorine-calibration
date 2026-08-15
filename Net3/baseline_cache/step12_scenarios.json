@@ -1,0 +1,1073 @@
+{
+  "primary_weighting": "formal_censored",
+  "comparators": [],
+  "description": "Step 12 operational temperature/ageing scenario projection of the three-zone posterior ensemble, weighted by the primary formal censored likelihood",
+  "informal_threshold_reference_only": 0.107,
+  "n_retained_draws": 2196,
+  "n_total_draws": 8192,
+  "weight_floor_relative": 1e-06,
+  "retained_weight_mass": 0.9999962073887739,
+  "discarded_weight_mass": 3.792611226072218e-06,
+  "retention_rule": "draws whose formal censored relative weight exceeds WEIGHT_FLOOR; this is a numerical truncation of a likelihood, NOT a behavioural acceptance threshold",
+  "C_CRIT": 0.2,
+  "assessment_window_h": [
+    120,
+    168
+  ],
+  "T_window_intervals": 48,
+  "definitions": {
+    "P_min": "sum_i w_i * 1[min_t C_i(t) < C_crit] over t = 120..168 h (48-hour window minimum, NOT a 24-hour daily minimum)",
+    "P_bar": "E[D]/T_window, the Step-10 time-averaged below-threshold probability",
+    "E_duration_h": "weighted expected hours below C_crit, trapezoid over 48 intervals",
+    "E_deficit": "weighted expected cumulative deficit, mg/L*h",
+    "network_mean": "unweighted arithmetic mean over all 92 junctions",
+    "indeterminate": "0.05 < P_min < 0.95",
+    "demand_at_risk": "sum of average expected demand over junctions with P_min > 0.5 (zero-demand nodes contribute 0)",
+    "median_over_nodes_of_mean_window_min_mgl": "per junction take the likelihood-weighted mean of the per-member window minimum, then the median of those 92 node values (NOT a pooled member-node median)",
+    "likelihood_bands_on_P_min": {
+      "rare": "P_min < 0.05",
+      "unlikely": "0.05 <= P_min < 0.20",
+      "possible": "0.20 <= P_min < 0.50",
+      "likely": "0.50 <= P_min < 0.80",
+      "almost certain": "P_min >= 0.80"
+    },
+    "likelihood_scores": {
+      "rare": 1,
+      "unlikely": 2,
+      "possible": 3,
+      "likely": 4,
+      "almost certain": 5
+    },
+    "consequence_scores": {
+      "non-consumer (d = 0)": 0,
+      "minor (0 < d <= tercile1)": 1,
+      "moderate (tercile1 < d <= tercile2)": 2,
+      "major (d > tercile2)": 3
+    },
+    "consequence_terciles": "1/3 and 2/3 quantiles of average expected demand over the 59 junctions with non-zero demand. d is the PATTERN-AWARE average expected demand (wntr.metrics.hydraulic.average_expected_demand), not the base_demand field: four Net3 junctions encode a large demand as 1 GPM times a large pattern and a base-only reading puts them in the minor band. WNTR stores demand internally in m^3/s, so x1000 -> L/s; the .inp itself declares GPM",
+    "risk_score_breach": "likelihood score (on P_min) x consequence score, range 0-15. Answers: does this node breach at all, and who does it serve",
+    "risk_score_severity": "severity score (on E[D]) x consequence score, range 0-15. Answers: for how long, and who does it serve. It is a PARALLEL axis, not a replacement \u2014 the two products answer different questions and are reported together with their disagreement",
+    "severity_bands_on_E_duration_h": {
+      "negligible": "E[D] < 1 h",
+      "brief": "1 <= E[D] < 6 h",
+      "sustained": "6 <= E[D] < 12 h",
+      "prolonged": "12 <= E[D] < 24 h",
+      "persistent": "E[D] >= 24 h (half the assessment window or more)"
+    },
+    "severity_scores": {
+      "negligible": 1,
+      "brief": 2,
+      "sustained": 3,
+      "prolonged": 4,
+      "persistent": 5
+    },
+    "severity_bands_are_absolute": "the edges are pre-declared hours, NOT quantiles of this network's own results, so the same scale applies across scenarios; a data-driven scale would move with the heatwave and could not show escalation",
+    "E_depth_while_below_mgL": "E[A]/E[D], the mean depth below C_crit while below it; 0 where E[D] = 0. E[D] alone cannot separate a long shallow excursion from a short deep one, so the depth is carried with it",
+    "risk_band_mapping": {
+      "not applicable": "score = 0",
+      "low": "1 <= score <= 3",
+      "medium": "4 <= score <= 6",
+      "high": "7 <= score <= 9",
+      "very high": "score >= 10"
+    },
+    "sampling_priority": "consequence SCORE (0-3, not raw demand) x P_min(1 - P_min), normalised by its maximum; forced to 0 at zero-demand nodes. This ranks where MEASUREMENT would reduce uncertainty most, so a node with P_min = 1 scores 0: it is confidently at risk, not low priority. Intervention priority is the separate risk_score_breach and risk_score_severity columns; the three must not be merged."
+  },
+  "uncertainty_sources": {
+    "kinetics": "formal censored-likelihood weights over 2196 retained draws (ESS 156.7); informal GLUE is a comparator, not the primary",
+    "Ea_bulk_J_per_mol": {
+      "mean": 45000.0,
+      "sd": 8000.0,
+      "drawn_min": 17592.964736200032,
+      "drawn_max": 72051.22763305799,
+      "truncated_at": 5000.0
+    },
+    "Ea_wall_J_per_mol": {
+      "mean": 35000.0,
+      "sd": 10000.0,
+      "drawn_min": 5103.177575996382,
+      "drawn_max": 70240.68733746296,
+      "truncated_at": 5000.0
+    },
+    "water_temperature_span_C": [
+      8.477577557839687,
+      23.501353202146824
+    ],
+    "water_temperature_C": "dT ~ N(0, 1.0^2) added to the scenario mean, truncated to [-4.0, +4.0] degC so every scenario stays inside the 8.0-24.0 degC validity range",
+    "water_temperature_draws_resampled": 0,
+    "common_random_numbers": true
+  },
+  "T_ref_C": 12.0,
+  "clip_guard_m_per_day": -8.0,
+  "clipped_draws_per_scenario": {
+    "A_baseline": 0,
+    "B_warm": 0,
+    "C_heatwave": 0,
+    "D_heat_age": 0
+  },
+  "kw_old_ratio_D_over_C": 1.85,
+  "ageing_alphas_illustrative": {
+    "mild": {
+      "new": 1.0,
+      "average": 1.15,
+      "old": 1.4
+    },
+    "central": {
+      "new": 1.0,
+      "average": 1.35,
+      "old": 1.85
+    },
+    "severe": {
+      "new": 1.0,
+      "average": 1.5,
+      "old": 2.2
+    }
+  },
+  "ageing_sensitivity": [
+    {
+      "ageing_set": "mild",
+      "alpha_avg": 1.15,
+      "alpha_old": 1.4,
+      "P_min_gt_0.5_nodes": 30,
+      "demand_at_risk_L_s": 69.4,
+      "high_or_very_high": 13,
+      "indeterminate": 4,
+      "net_mean_E_duration_h": 5.515,
+      "net_mean_E_deficit": 0.55
+    },
+    {
+      "ageing_set": "central",
+      "alpha_avg": 1.35,
+      "alpha_old": 1.85,
+      "P_min_gt_0.5_nodes": 31,
+      "demand_at_risk_L_s": 69.4,
+      "high_or_very_high": 13,
+      "indeterminate": 4,
+      "net_mean_E_duration_h": 5.912,
+      "net_mean_E_deficit": 0.579
+    },
+    {
+      "ageing_set": "severe",
+      "alpha_avg": 1.5,
+      "alpha_old": 2.2,
+      "P_min_gt_0.5_nodes": 31,
+      "demand_at_risk_L_s": 69.4,
+      "high_or_very_high": 14,
+      "indeterminate": 4,
+      "net_mean_E_duration_h": 6.178,
+      "net_mean_E_deficit": 0.599
+    }
+  ],
+  "sigma_convention": "observation sigma = 0.1 mg/L is one standard deviation",
+  "product_statement": "calibration-conditioned scenario projection from the network model; not a sensor nowcast, not a spatial measurement, and not a statement that water is safe",
+  "consequence_terciles_L_s": [
+    1.6665365633090958,
+    4.383965126048627
+  ],
+  "severity_axis": {
+    "axis": "expected below-threshold duration E[D] in the assessment window, banded on absolute pre-declared hours",
+    "band_edges_h": [
+      1.0,
+      6.0,
+      12.0,
+      24.0
+    ],
+    "scenario": "A_baseline (the same scenario the breach product is scored on)",
+    "consumer_junctions": 59,
+    "severity_band_counts_consumers": {
+      "negligible": 42,
+      "brief": 1,
+      "sustained": 6,
+      "prolonged": 9,
+      "persistent": 1
+    },
+    "risk_band_agreement_consumers": {
+      "same band": 49,
+      "severity band higher": 0,
+      "severity band lower": 10
+    },
+    "nodes_that_move": [
+      {
+        "node": "149",
+        "P_min": 1.0,
+        "E_duration_h": 6.04,
+        "E_deficit_mgL_h": 0.2942,
+        "E_depth_while_below_mgL": 0.0487,
+        "mean_C_while_below_mgL": 0.1513,
+        "demand_L_s": 1.83,
+        "band_breach": "very high",
+        "band_severity": "medium",
+        "direction": "severity lower"
+      },
+      {
+        "node": "247",
+        "P_min": 1.0,
+        "E_duration_h": 2.0,
+        "E_deficit_mgL_h": 0.1799,
+        "E_depth_while_below_mgL": 0.0899,
+        "mean_C_while_below_mgL": 0.1101,
+        "demand_L_s": 4.75,
+        "band_breach": "very high",
+        "band_severity": "medium",
+        "direction": "severity lower"
+      },
+      {
+        "node": "253",
+        "P_min": 1.0,
+        "E_duration_h": 8.0,
+        "E_deficit_mgL_h": 0.7577,
+        "E_depth_while_below_mgL": 0.0947,
+        "mean_C_while_below_mgL": 0.1053,
+        "demand_L_s": 3.68,
+        "band_breach": "very high",
+        "band_severity": "medium",
+        "direction": "severity lower"
+      },
+      {
+        "node": "255",
+        "P_min": 1.0,
+        "E_duration_h": 8.0,
+        "E_deficit_mgL_h": 0.7039,
+        "E_depth_while_below_mgL": 0.088,
+        "mean_C_while_below_mgL": 0.112,
+        "demand_L_s": 2.73,
+        "band_breach": "very high",
+        "band_severity": "medium",
+        "direction": "severity lower"
+      },
+      {
+        "node": "125",
+        "P_min": 0.998,
+        "E_duration_h": 17.12,
+        "E_deficit_mgL_h": 0.4343,
+        "E_depth_while_below_mgL": 0.0254,
+        "mean_C_while_below_mgL": 0.1746,
+        "demand_L_s": 3.08,
+        "band_breach": "very high",
+        "band_severity": "high",
+        "direction": "severity lower"
+      },
+      {
+        "node": "145",
+        "P_min": 1.0,
+        "E_duration_h": 12.02,
+        "E_deficit_mgL_h": 1.6826,
+        "E_depth_while_below_mgL": 0.14,
+        "mean_C_while_below_mgL": 0.06,
+        "demand_L_s": 1.86,
+        "band_breach": "very high",
+        "band_severity": "high",
+        "direction": "severity lower"
+      },
+      {
+        "node": "147",
+        "P_min": 1.0,
+        "E_duration_h": 7.45,
+        "E_deficit_mgL_h": 0.5906,
+        "E_depth_while_below_mgL": 0.0793,
+        "mean_C_while_below_mgL": 0.1207,
+        "demand_L_s": 0.58,
+        "band_breach": "medium",
+        "band_severity": "low",
+        "direction": "severity lower"
+      },
+      {
+        "node": "151",
+        "P_min": 1.0,
+        "E_duration_h": 7.48,
+        "E_deficit_mgL_h": 0.3164,
+        "E_depth_while_below_mgL": 0.0423,
+        "mean_C_while_below_mgL": 0.1577,
+        "demand_L_s": 9.75,
+        "band_breach": "very high",
+        "band_severity": "high",
+        "direction": "severity lower"
+      },
+      {
+        "node": "153",
+        "P_min": 1.0,
+        "E_duration_h": 17.89,
+        "E_deficit_mgL_h": 0.6567,
+        "E_depth_while_below_mgL": 0.0367,
+        "mean_C_while_below_mgL": 0.1633,
+        "demand_L_s": 2.98,
+        "band_breach": "very high",
+        "band_severity": "high",
+        "direction": "severity lower"
+      },
+      {
+        "node": "251",
+        "P_min": 1.0,
+        "E_duration_h": 6.0,
+        "E_deficit_mgL_h": 0.5727,
+        "E_depth_while_below_mgL": 0.0954,
+        "mean_C_while_below_mgL": 0.1046,
+        "demand_L_s": 1.63,
+        "band_breach": "medium",
+        "band_severity": "low",
+        "direction": "severity lower"
+      }
+    ],
+    "depth_spread_over_movers": {
+      "min_depth_mgL": 0.0254,
+      "max_depth_mgL": 0.14,
+      "ratio": 5.51,
+      "min_mean_C_while_below_mgL": 0.06,
+      "max_mean_C_while_below_mgL": 0.1746,
+      "note": "the movers share a probability and a limited duration, NOT a depth. Summarising them as 'marginally below' flattens a factor-of-several spread and repeats, one level down, the conflation the severity axis exists to prevent"
+    },
+    "deficit_spread_within_one_severity_band": {
+      "band": "prolonged",
+      "members": [
+        "125",
+        "145",
+        "153"
+      ],
+      "E_deficit_mgL_h": [
+        0.4343,
+        1.6826,
+        0.6567
+      ],
+      "note": "E[D] bands cannot separate depth; this is the blind spot the depth column exists for, measured inside a single band"
+    },
+    "n_nodes_that_move": 10,
+    "reading": "the two products are not interchangeable: where the severity band is LOWER the node breaches reliably but only briefly, and where it is HIGHER the breach is less certain but long when it happens. Neither ordering is the correct one \u2014 the pair is the result",
+    "ordering_is_not_guaranteed": {
+      "bound": "E[D] <= T_window * P_min, from D_i <= T_window * 1[member i breaches]",
+      "bound_violations_over_all_junctions": 0,
+      "what_it_does_NOT_imply": "an ordering of the two banded SCORES. The scales are not aligned, so the bound constrains an inversion without forbidding it",
+      "counterexample": {
+        "P_min": 0.03,
+        "E_duration_h": 1.2,
+        "bound_at_this_P_min_h": 1.44,
+        "satisfies_bound": true,
+        "likelihood_band": 1,
+        "severity_band": 2
+      },
+      "what_it_DOES_imply": "an inversion of at most one band, and none once P_min >= the top likelihood edge \u2014 see reachability below",
+      "reachability": [
+        {
+          "likelihood_band": 1,
+          "sup_P_min": 0.05,
+          "sup_E_duration_h": 2.4,
+          "max_reachable_severity_band": 2,
+          "max_inversion": 1
+        },
+        {
+          "likelihood_band": 2,
+          "sup_P_min": 0.2,
+          "sup_E_duration_h": 9.6,
+          "max_reachable_severity_band": 3,
+          "max_inversion": 1
+        },
+        {
+          "likelihood_band": 3,
+          "sup_P_min": 0.5,
+          "sup_E_duration_h": 24.0,
+          "max_reachable_severity_band": 4,
+          "max_inversion": 1
+        },
+        {
+          "likelihood_band": 4,
+          "sup_P_min": 0.8,
+          "sup_E_duration_h": 38.4,
+          "max_reachable_severity_band": 5,
+          "max_inversion": 1
+        },
+        {
+          "likelihood_band": 5,
+          "sup_P_min": 1.0,
+          "sup_E_duration_h": 48.0,
+          "max_reachable_severity_band": 5,
+          "max_inversion": 0
+        }
+      ],
+      "max_inversion_permitted_by_the_bound": 1
+    },
+    "governance_rule": {
+      "rule": "act on the higher of the breach band and the severity band; neither axis alone may reduce an action",
+      "applies_to": "the control_measure column and the register's sort order",
+      "why_not_pick_an_axis": "the register says neither product is the correct one; that has to be a rule rather than a stance, or a single control_measure silently reinstates one axis as the operational one",
+      "columns": {
+        "control_measure": "from risk_band_governing (the higher of the two)",
+        "control_measure_breach": "from risk_band_current, for visibility",
+        "control_measure_severity": "from risk_band_severity, for visibility"
+      },
+      "n_junctions_where_severity_governs": 0,
+      "n_consumer_junctions_where_severity_governs": 0,
+      "currently_equivalent_to_the_breach_axis": true,
+      "equivalence_is_measured_not_assumed": "in this baseline field the severity band never exceeds the breach band, so the governing band equals the breach band everywhere. The bound E[D] <= T_window * P_min permits an inversion of one band, so the rule is not vacuous in general"
+    },
+    "observed_ordering": {
+      "note": "EMPIRICAL, not implied by the bound",
+      "consumer_junctions": 59,
+      "n_severity_score_above_likelihood_score": 0,
+      "n_equal": 43,
+      "n_severity_score_below": 16,
+      "min_hours_of_E_duration_to_first_inversion": 0.939,
+      "n_consumers_that_can_never_invert_at_their_P_min": 17
+    }
+  },
+  "scenario_summary": [
+    {
+      "scenario": "A. Baseline 12 \u00b0C",
+      "mean_kb": -0.504,
+      "mean_kw_old": -0.994,
+      "P_min_gt_0.5_nodes": 21,
+      "demand_at_risk_L_s": 55.4,
+      "pct_demand_at_risk": 8.0,
+      "high_or_very_high": 10,
+      "high_or_very_high_severity": 6,
+      "high_or_very_high_governing": 10,
+      "severity_band_counts": {
+        "negligible": 42,
+        "brief": 1,
+        "sustained": 6,
+        "prolonged": 9,
+        "persistent": 1
+      },
+      "n_persistent_consumers": 1,
+      "demand_at_risk_severity_L_s": 50.6,
+      "indeterminate": 0,
+      "net_mean_P_bar": 0.0708,
+      "net_mean_E_duration_h": 3.398,
+      "net_mean_E_deficit": 0.2216
+    },
+    {
+      "scenario": "B. Warm season 16 \u00b0C",
+      "mean_kb": -0.655,
+      "mean_kw_old": -1.222,
+      "P_min_gt_0.5_nodes": 28,
+      "demand_at_risk_L_s": 64.7,
+      "pct_demand_at_risk": 9.4,
+      "high_or_very_high": 12,
+      "high_or_very_high_severity": 6,
+      "high_or_very_high_governing": 12,
+      "severity_band_counts": {
+        "negligible": 38,
+        "brief": 5,
+        "sustained": 6,
+        "prolonged": 6,
+        "persistent": 4
+      },
+      "n_persistent_consumers": 4,
+      "demand_at_risk_severity_L_s": 50.6,
+      "indeterminate": 8,
+      "net_mean_P_bar": 0.0884,
+      "net_mean_E_duration_h": 4.245,
+      "net_mean_E_deficit": 0.3645
+    },
+    {
+      "scenario": "C. Heatwave 20 \u00b0C",
+      "mean_kb": -0.848,
+      "mean_kw_old": -1.501,
+      "P_min_gt_0.5_nodes": 29,
+      "demand_at_risk_L_s": 67.8,
+      "pct_demand_at_risk": 9.8,
+      "high_or_very_high": 13,
+      "high_or_very_high_severity": 7,
+      "high_or_very_high_governing": 13,
+      "severity_band_counts": {
+        "negligible": 36,
+        "brief": 3,
+        "sustained": 8,
+        "prolonged": 6,
+        "persistent": 6
+      },
+      "n_persistent_consumers": 6,
+      "demand_at_risk_severity_L_s": 60.0,
+      "indeterminate": 4,
+      "net_mean_P_bar": 0.1087,
+      "net_mean_E_duration_h": 5.218,
+      "net_mean_E_deficit": 0.5218
+    },
+    {
+      "scenario": "D. Heatwave 20 \u00b0C + ageing stress",
+      "mean_kb": -0.848,
+      "mean_kw_old": -2.777,
+      "P_min_gt_0.5_nodes": 31,
+      "demand_at_risk_L_s": 69.4,
+      "pct_demand_at_risk": 10.0,
+      "high_or_very_high": 13,
+      "high_or_very_high_severity": 7,
+      "high_or_very_high_governing": 13,
+      "severity_band_counts": {
+        "negligible": 35,
+        "brief": 4,
+        "sustained": 6,
+        "prolonged": 6,
+        "persistent": 8
+      },
+      "n_persistent_consumers": 8,
+      "demand_at_risk_severity_L_s": 60.0,
+      "indeterminate": 4,
+      "net_mean_P_bar": 0.1232,
+      "net_mean_E_duration_h": 5.912,
+      "net_mean_E_deficit": 0.579
+    }
+  ],
+  "reference_at_T_ref_exact": {
+    "P_min_gt_0.5_nodes": 21,
+    "demand_at_risk_L_s": 55.4,
+    "net_mean_E_deficit": 0.2181
+  },
+  "dosing_heatwave": [
+    {
+      "inlet_dose_mgl": 1.0,
+      "P_min_gt_0.5_nodes": 29,
+      "demand_at_risk_L_s": 67.8,
+      "pct_demand_at_risk": 9.8,
+      "net_mean_P_min": 0.3246,
+      "net_mean_E_duration_h": 5.218,
+      "net_mean_E_deficit": 0.5218,
+      "median_over_nodes_of_mean_window_min_mgl": 0.463
+    },
+    {
+      "inlet_dose_mgl": 1.15,
+      "P_min_gt_0.5_nodes": 28,
+      "demand_at_risk_L_s": 64.7,
+      "pct_demand_at_risk": 9.4,
+      "net_mean_P_min": 0.3112,
+      "net_mean_E_duration_h": 4.628,
+      "net_mean_E_deficit": 0.4527,
+      "median_over_nodes_of_mean_window_min_mgl": 0.532
+    },
+    {
+      "inlet_dose_mgl": 1.3,
+      "P_min_gt_0.5_nodes": 28,
+      "demand_at_risk_L_s": 64.7,
+      "pct_demand_at_risk": 9.4,
+      "net_mean_P_min": 0.2915,
+      "net_mean_E_duration_h": 4.288,
+      "net_mean_E_deficit": 0.3957,
+      "median_over_nodes_of_mean_window_min_mgl": 0.601
+    }
+  ],
+  "dosing_boundary": "reservoir source quality AND tank initial quality both scaled by dose",
+  "dosing_linearity_check": {
+    "max_abs_err_mgL": 1.420825719833374e-05,
+    "conditions": "holds under fixed hydraulics and demands, first-order bulk and wall kinetics, and proportional scaling of ALL source and initial chlorine concentrations; a dose factor r is then equivalent to evaluating the unscaled field against C_crit / r"
+  },
+  "dosing_paired_warmup_test": {
+    "design": "identical member subset, weights and scenario draws; only the simulation horizon differs, so the contrast isolates warm-up length. 'long' is the CURRENT configuration justified by Step 0; 'short' is the draft setting, so the rows measure what the draft's warm-up cost rather than testing the current one",
+    "short": {
+      "duration_h": 72,
+      "warmup_h": 24,
+      "role": "draft comparator"
+    },
+    "long": {
+      "duration_h": 168,
+      "warmup_h": 120,
+      "role": "current baseline"
+    },
+    "n_members": 275,
+    "subset_stride": 8,
+    "rows": [
+      {
+        "inlet_dose_mgl": 1.0,
+        "short_P_min_gt_0.5_nodes": 31,
+        "long_P_min_gt_0.5_nodes": 31,
+        "short_demand_at_risk_L_s": 69.6,
+        "long_demand_at_risk_L_s": 69.6,
+        "short_net_mean_E_duration_h": 5.37,
+        "long_net_mean_E_duration_h": 5.389,
+        "short_net_mean_E_deficit": 0.5052,
+        "long_net_mean_E_deficit": 0.5484,
+        "long_minus_short_rel_E_deficit": 0.0856
+      },
+      {
+        "inlet_dose_mgl": 1.15,
+        "short_P_min_gt_0.5_nodes": 29,
+        "long_P_min_gt_0.5_nodes": 29,
+        "short_demand_at_risk_L_s": 64.9,
+        "long_demand_at_risk_L_s": 67.8,
+        "short_net_mean_E_duration_h": 4.655,
+        "long_net_mean_E_duration_h": 4.788,
+        "short_net_mean_E_deficit": 0.4306,
+        "long_net_mean_E_deficit": 0.4789,
+        "long_minus_short_rel_E_deficit": 0.1121
+      },
+      {
+        "inlet_dose_mgl": 1.3,
+        "short_P_min_gt_0.5_nodes": 29,
+        "long_P_min_gt_0.5_nodes": 28,
+        "short_demand_at_risk_L_s": 64.9,
+        "long_demand_at_risk_L_s": 64.7,
+        "short_net_mean_E_duration_h": 4.04,
+        "long_net_mean_E_duration_h": 4.369,
+        "short_net_mean_E_deficit": 0.3736,
+        "long_net_mean_E_deficit": 0.422,
+        "long_minus_short_rel_E_deficit": 0.1297
+      }
+    ]
+  },
+  "baseline_demand_at_risk_L_s": 55.37568175518917,
+  "dosing_restores_baseline": false,
+  "escalation_test": {
+    "test": "risk band changes between scenario A and scenario D",
+    "on_governing_band": {
+      "n_consumer_junctions": 7,
+      "demand_L_s": 20.23,
+      "n_unmonitored": 6
+    },
+    "on_breach_band_only": {
+      "n_consumer_junctions": 7,
+      "demand_L_s": 20.23,
+      "n_unmonitored": 6
+    },
+    "found_only_by_the_governing_test": [],
+    "the_governing_rule_does_NOT_remove_the_blind_spot": {
+      "why": "max(breach, severity) SATURATES. Where the breach band is already 'very high' -- which is what P_min ~ 1 at a consuming junction gives -- no rise in the severity band can move the governing band, so a band-change escalation test stays blind however far E[D] grows. The rule fixes which axis drives an ACTION; it does not make a band comparison sensitive to change at the ceiling",
+      "nodes": [
+        {
+          "node": "243",
+          "demand_L_s": 0.29,
+          "E_duration_h_A": 13.09,
+          "E_duration_h_D": 48.0,
+          "delta_E_duration_h": 34.91,
+          "severity_band_A": "medium",
+          "severity_band_D": "medium",
+          "severity_band_changes": false,
+          "governing_band_A": "medium",
+          "governing_band_D": "medium",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "15",
+          "demand_L_s": 16.67,
+          "E_duration_h_A": 21.95,
+          "E_duration_h_D": 33.51,
+          "delta_E_duration_h": 11.56,
+          "severity_band_A": "very high",
+          "severity_band_D": "very high",
+          "severity_band_changes": false,
+          "governing_band_A": "very high",
+          "governing_band_D": "very high",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "143",
+          "demand_L_s": 0.42,
+          "E_duration_h_A": 21.72,
+          "E_duration_h_D": 32.09,
+          "delta_E_duration_h": 10.37,
+          "severity_band_A": "medium",
+          "severity_band_D": "medium",
+          "severity_band_changes": false,
+          "governing_band_A": "medium",
+          "governing_band_D": "medium",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "145",
+          "demand_L_s": 1.86,
+          "E_duration_h_A": 12.02,
+          "E_duration_h_D": 20.05,
+          "delta_E_duration_h": 8.03,
+          "severity_band_A": "high",
+          "severity_band_D": "high",
+          "severity_band_changes": false,
+          "governing_band_A": "very high",
+          "governing_band_D": "very high",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "141",
+          "demand_L_s": 0.66,
+          "E_duration_h_A": 22.31,
+          "E_duration_h_D": 30.18,
+          "delta_E_duration_h": 7.87,
+          "severity_band_A": "medium",
+          "severity_band_D": "medium",
+          "severity_band_changes": false,
+          "governing_band_A": "medium",
+          "governing_band_D": "medium",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "151",
+          "demand_L_s": 9.75,
+          "E_duration_h_A": 7.48,
+          "E_duration_h_D": 12.0,
+          "delta_E_duration_h": 4.52,
+          "severity_band_A": "high",
+          "severity_band_D": "very high",
+          "severity_band_changes": true,
+          "governing_band_A": "very high",
+          "governing_band_D": "very high",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "149",
+          "demand_L_s": 1.83,
+          "E_duration_h_A": 6.04,
+          "E_duration_h_D": 9.59,
+          "delta_E_duration_h": 3.55,
+          "severity_band_A": "medium",
+          "severity_band_D": "medium",
+          "severity_band_changes": false,
+          "governing_band_A": "very high",
+          "governing_band_D": "very high",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "127",
+          "demand_L_s": 1.19,
+          "E_duration_h_A": 20.89,
+          "E_duration_h_D": 24.0,
+          "delta_E_duration_h": 3.11,
+          "severity_band_A": "medium",
+          "severity_band_D": "medium",
+          "severity_band_changes": false,
+          "governing_band_A": "medium",
+          "governing_band_D": "medium",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "147",
+          "demand_L_s": 0.58,
+          "E_duration_h_A": 7.45,
+          "E_duration_h_D": 10.05,
+          "delta_E_duration_h": 2.6,
+          "severity_band_A": "low",
+          "severity_band_D": "low",
+          "severity_band_changes": false,
+          "governing_band_A": "medium",
+          "governing_band_D": "medium",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "139",
+          "demand_L_s": 0.4,
+          "E_duration_h_A": 22.0,
+          "E_duration_h_D": 23.78,
+          "delta_E_duration_h": 1.78,
+          "severity_band_A": "medium",
+          "severity_band_D": "medium",
+          "severity_band_changes": false,
+          "governing_band_A": "medium",
+          "governing_band_D": "medium",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "131",
+          "demand_L_s": 2.88,
+          "E_duration_h_A": 46.55,
+          "E_duration_h_D": 48.0,
+          "delta_E_duration_h": 1.45,
+          "severity_band_A": "very high",
+          "severity_band_D": "very high",
+          "severity_band_changes": false,
+          "governing_band_A": "very high",
+          "governing_band_D": "very high",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "253",
+          "demand_L_s": 3.68,
+          "E_duration_h_A": 8.0,
+          "E_duration_h_D": 8.78,
+          "delta_E_duration_h": 0.78,
+          "severity_band_A": "medium",
+          "severity_band_D": "medium",
+          "severity_band_changes": false,
+          "governing_band_A": "very high",
+          "governing_band_D": "very high",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "247",
+          "demand_L_s": 4.75,
+          "E_duration_h_A": 2.0,
+          "E_duration_h_D": 2.59,
+          "delta_E_duration_h": 0.59,
+          "severity_band_A": "medium",
+          "severity_band_D": "medium",
+          "severity_band_changes": false,
+          "governing_band_A": "very high",
+          "governing_band_D": "very high",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "251",
+          "demand_L_s": 1.63,
+          "E_duration_h_A": 6.0,
+          "E_duration_h_D": 6.58,
+          "delta_E_duration_h": 0.58,
+          "severity_band_A": "low",
+          "severity_band_D": "low",
+          "severity_band_changes": false,
+          "governing_band_A": "medium",
+          "governing_band_D": "medium",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "255",
+          "demand_L_s": 2.73,
+          "E_duration_h_A": 8.0,
+          "E_duration_h_D": 8.12,
+          "delta_E_duration_h": 0.12,
+          "severity_band_A": "medium",
+          "severity_band_D": "medium",
+          "severity_band_changes": false,
+          "governing_band_A": "very high",
+          "governing_band_D": "very high",
+          "flagged_by_either_escalation_test": false
+        },
+        {
+          "node": "153",
+          "demand_L_s": 2.98,
+          "E_duration_h_A": 17.89,
+          "E_duration_h_D": 18.0,
+          "delta_E_duration_h": 0.11,
+          "severity_band_A": "high",
+          "severity_band_D": "high",
+          "severity_band_changes": false,
+          "governing_band_A": "very high",
+          "governing_band_D": "very high",
+          "flagged_by_either_escalation_test": false
+        }
+      ],
+      "n_changing_severity_band_but_flagged_by_neither_test": 1,
+      "demand_L_s_of_those": 9.75,
+      "recommendation": "for junctions whose band cannot move, escalation has to be read on the CONTINUOUS metric (delta E[D], delta E[A]), not on a band change. The band-change columns are necessary but not sufficient"
+    },
+    "two_distinct_reasons_a_band_cannot_move": {
+      "1_saturation_at_the_top": "a junction already at 'very high' cannot rise. This is what P_min ~ 1 at a moderate or major consumer produces, and it is why max(breach, severity) does not help there",
+      "2_ceiling_of_the_multiplicative_matrix": "score = axis score (1-5) x consequence score (0-3), so a MINOR consumer (consequence 1) tops out at score 5 -> 'medium' however severe it gets. The register cannot express 'this small consumer has no chlorine for the whole window' as anything above medium",
+      "max_attainable_band_by_consequence_score": {
+        "0": "not applicable",
+        "1": "medium",
+        "2": "very high",
+        "3": "very high"
+      },
+      "n_junctions_capped_below_high": 20,
+      "demand_L_s_capped_below_high": 17.46,
+      "worked_example": {
+        "node": "243",
+        "E_duration_h_A": 13.09,
+        "E_duration_h_D": 48.0,
+        "demand_L_s": 0.29,
+        "consequence_score": 1,
+        "note": "goes to the FULL window below the threshold under scenario D and stays 'medium' in both, because its consequence score of 1 caps the product"
+      }
+    },
+    "structural_blind_spot_of_the_breach_test": {
+      "n_consumer_junctions_with_P_min_1_in_both_A_and_D": 16,
+      "demand_L_s": 52.3,
+      "why": "their likelihood band cannot change between the two scenarios, so a breach-only escalation test can never flag them however far their below-threshold duration grows; this is the conflation the severity axis exists to prevent, present in the escalation column",
+      "max_E_duration_growth_h": 34.91
+    }
+  },
+  "n_escalating_consumer_nodes": 7,
+  "escalating_demand_L_s": 20.229999999999997,
+  "top_escalating": [
+    {
+      "node": "215",
+      "P_min_baseline": 0.0,
+      "P_min_heatwave": 0.023,
+      "P_min_heat_ageing": 0.114,
+      "dP_ageing": 0.091,
+      "demand_L_s": 6.22,
+      "band_current": "low",
+      "band_heat_ageing": "medium",
+      "band_current_breach": "low",
+      "band_heat_ageing_breach": "medium",
+      "band_current_severity": "low",
+      "band_heat_ageing_severity": "low",
+      "E_duration_h_A": 0.0,
+      "E_duration_h_D": 0.24,
+      "escalates_on_breach_only": true,
+      "monitored": false
+    },
+    {
+      "node": "177",
+      "P_min_baseline": 0.0,
+      "P_min_heatwave": 1.0,
+      "P_min_heat_ageing": 1.0,
+      "dP_ageing": 0.0,
+      "demand_L_s": 3.93,
+      "band_current": "low",
+      "band_heat_ageing": "very high",
+      "band_current_breach": "low",
+      "band_heat_ageing_breach": "very high",
+      "band_current_severity": "low",
+      "band_heat_ageing_severity": "medium",
+      "E_duration_h_A": 0.0,
+      "E_duration_h_D": 7.9,
+      "escalates_on_breach_only": true,
+      "monitored": false
+    },
+    {
+      "node": "239",
+      "P_min_baseline": 0.0,
+      "P_min_heatwave": 0.832,
+      "P_min_heat_ageing": 0.986,
+      "dP_ageing": 0.155,
+      "demand_L_s": 3.01,
+      "band_current": "low",
+      "band_heat_ageing": "very high",
+      "band_current_breach": "low",
+      "band_heat_ageing_breach": "very high",
+      "band_current_severity": "low",
+      "band_heat_ageing_severity": "medium",
+      "E_duration_h_A": 0.0,
+      "E_duration_h_D": 1.97,
+      "escalates_on_breach_only": true,
+      "monitored": false
+    },
+    {
+      "node": "219",
+      "P_min_baseline": 0.011,
+      "P_min_heatwave": 1.0,
+      "P_min_heat_ageing": 1.0,
+      "dP_ageing": 0.0,
+      "demand_L_s": 2.79,
+      "band_current": "low",
+      "band_heat_ageing": "very high",
+      "band_current_breach": "low",
+      "band_heat_ageing_breach": "very high",
+      "band_current_severity": "low",
+      "band_heat_ageing_severity": "very high",
+      "E_duration_h_A": 0.02,
+      "E_duration_h_D": 33.3,
+      "escalates_on_breach_only": true,
+      "monitored": false
+    },
+    {
+      "node": "217",
+      "P_min_baseline": 0.0,
+      "P_min_heatwave": 0.403,
+      "P_min_heat_ageing": 0.748,
+      "dP_ageing": 0.346,
+      "demand_L_s": 1.63,
+      "band_current": "low",
+      "band_heat_ageing": "medium",
+      "band_current_breach": "low",
+      "band_heat_ageing_breach": "medium",
+      "band_current_severity": "low",
+      "band_heat_ageing_severity": "low",
+      "E_duration_h_A": 0.0,
+      "E_duration_h_D": 1.77,
+      "escalates_on_breach_only": true,
+      "monitored": false
+    },
+    {
+      "node": "225",
+      "P_min_baseline": 0.03,
+      "P_min_heatwave": 1.0,
+      "P_min_heat_ageing": 1.0,
+      "dP_ageing": 0.0,
+      "demand_L_s": 1.54,
+      "band_current": "low",
+      "band_heat_ageing": "medium",
+      "band_current_breach": "low",
+      "band_heat_ageing_breach": "medium",
+      "band_current_severity": "low",
+      "band_heat_ageing_severity": "medium",
+      "E_duration_h_A": 0.06,
+      "E_duration_h_D": 34.24,
+      "escalates_on_breach_only": true,
+      "monitored": false
+    },
+    {
+      "node": "231",
+      "P_min_baseline": 0.001,
+      "P_min_heatwave": 1.0,
+      "P_min_heat_ageing": 1.0,
+      "dP_ageing": 0.0,
+      "demand_L_s": 1.11,
+      "band_current": "low",
+      "band_heat_ageing": "medium",
+      "band_current_breach": "low",
+      "band_heat_ageing_breach": "medium",
+      "band_current_severity": "low",
+      "band_heat_ageing_severity": "medium",
+      "E_duration_h_A": 0.0,
+      "E_duration_h_D": 16.96,
+      "escalates_on_breach_only": true,
+      "monitored": true
+    }
+  ],
+  "top_ageing_delta": [
+    {
+      "node": "249",
+      "dP_min": 0.41,
+      "P_C": 0.122,
+      "P_D": 0.533,
+      "demand_L_s": 0.0
+    },
+    {
+      "node": "217",
+      "dP_min": 0.346,
+      "P_C": 0.403,
+      "P_D": 0.748,
+      "demand_L_s": 1.63
+    },
+    {
+      "node": "239",
+      "dP_min": 0.155,
+      "P_C": 0.832,
+      "P_D": 0.986,
+      "demand_L_s": 3.01
+    },
+    {
+      "node": "215",
+      "dP_min": 0.091,
+      "P_C": 0.023,
+      "P_D": 0.114,
+      "demand_L_s": 6.22
+    },
+    {
+      "node": "166",
+      "dP_min": 0.008,
+      "P_C": 0.483,
+      "P_D": 0.492,
+      "demand_L_s": 0.18
+    },
+    {
+      "node": "237",
+      "dP_min": 0.001,
+      "P_C": 0.0,
+      "P_D": 0.001,
+      "demand_L_s": 1.05
+    },
+    {
+      "node": "231",
+      "dP_min": 0.0,
+      "P_C": 1.0,
+      "P_D": 1.0,
+      "demand_L_s": 1.11
+    },
+    {
+      "node": "219",
+      "dP_min": 0.0,
+      "P_C": 1.0,
+      "P_D": 1.0,
+      "demand_L_s": 2.79
+    },
+    {
+      "node": "40",
+      "dP_min": 0.0,
+      "P_C": 1.0,
+      "P_D": 1.0,
+      "demand_L_s": 0.0
+    },
+    {
+      "node": "229",
+      "dP_min": 0.0,
+      "P_C": 0.0,
+      "P_D": 0.0,
+      "demand_L_s": 4.33
+    }
+  ],
+  "review_triggers": [
+    "sensor QA failure / reference-check disagreement / sensor service",
+    "hydraulic model or demand allocation revised",
+    "source/treatment regime changes inlet chlorine",
+    "water temperature moves outside the 8-24 degC scenario range",
+    "forecast heat episode (switch to the scenario-D register; pre-authorise response)",
+    "mains rehabilitation or burst altering the assumed age profile",
+    "calibration record exceeds its approved age"
+  ],
+  "runtime_s": 571.4
+}

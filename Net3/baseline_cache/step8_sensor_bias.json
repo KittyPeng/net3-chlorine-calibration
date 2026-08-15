@@ -1,0 +1,346 @@
+{
+  "primary_weighting": "formal_censored",
+  "comparators": [],
+  "bias_node": "15",
+  "n_noise": 30,
+  "risk_metric": {
+    "P_bar": "expected fraction of the 48 h window below 0.2 mg/L (risk_top6, spearman_vs_unbiased, kendall_vs_unbiased, top6_jaccard_vs_unbiased)",
+    "E_A": "expected cumulative deficit in mg/L*h (deficit_* fields); this is the metric Step 10's headline top-10 is ranked by, and Step 8b showed the two metrics can disagree about which nodes lead"
+  },
+  "risk_ranking_basis": "median risk field over the noise realisations; the top-6 set and the Spearman/Kendall columns share that field, and the modal per-realisation ordering is reported separately as risk_rank_mode",
+  "symmetry_check": {
+    "0.025": {
+      "positive": 0.11740051681456176,
+      "negative": -0.13394952711349584,
+      "sum": -0.016549010298934075,
+      "abs_ratio": 1.1409619884814801
+    },
+    "0.05": {
+      "positive": 0.22131106785940113,
+      "negative": -0.2623155056291875,
+      "sum": -0.04100443776978635,
+      "abs_ratio": 1.1852796526011815
+    },
+    "0.1": {
+      "positive": 0.39187254051418907,
+      "negative": -0.3868915421307144,
+      "sum": 0.004980998383474655,
+      "abs_ratio": 0.987289238544403
+    }
+  },
+  "baseline_old_sd": 0.10117114656090895,
+  "rows": [
+    {
+      "offset": -0.1,
+      "old_mean_med": -1.4274054844633288,
+      "old_sd_med": 0.05974069277224546,
+      "avg_mean_med": -0.1017154436956363,
+      "new_mean_med": -0.049834534859088286,
+      "risk_top6": [
+        "131",
+        "129",
+        "141",
+        "15",
+        "127",
+        "143"
+      ],
+      "risk_rank_mode": [
+        "131",
+        "15",
+        "129",
+        "141",
+        "127",
+        "143"
+      ],
+      "n_censored_med": 13.0,
+      "deficit_top6": [
+        "131",
+        "141",
+        "139",
+        "15",
+        "145",
+        "143"
+      ],
+      "rmse_min_med": 0.09914437144089341,
+      "noise_rmse_med": 0.09811954422134325,
+      "rmse_min_over_noise_med": 1.0134905548536102,
+      "old_shift": -0.3868915421307144,
+      "shift_over_sd": -3.824129262959284,
+      "spearman_vs_unbiased": 0.9997091764732181,
+      "kendall_vs_unbiased": 0.9944838798561971,
+      "top6_jaccard_vs_unbiased": 1.0,
+      "deficit_spearman_vs_unbiased": 0.9995864136897068,
+      "deficit_top6_jaccard_vs_unbiased": 1.0
+    },
+    {
+      "offset": -0.05,
+      "old_mean_med": -1.302829447961802,
+      "old_sd_med": 0.1049194570716238,
+      "avg_mean_med": -0.10327241389642448,
+      "new_mean_med": -0.04934546455380914,
+      "risk_top6": [
+        "131",
+        "129",
+        "141",
+        "127",
+        "15",
+        "143"
+      ],
+      "risk_rank_mode": [
+        "131",
+        "129",
+        "141",
+        "127",
+        "15",
+        "143"
+      ],
+      "n_censored_med": 9.0,
+      "deficit_top6": [
+        "131",
+        "141",
+        "139",
+        "145",
+        "15",
+        "143"
+      ],
+      "rmse_min_med": 0.09768926363430622,
+      "noise_rmse_med": 0.09811954422134325,
+      "rmse_min_over_noise_med": 0.9946507827426672,
+      "old_shift": -0.2623155056291875,
+      "shift_over_sd": -2.5927896890173465,
+      "spearman_vs_unbiased": 0.9997350274552328,
+      "kendall_vs_unbiased": 0.995534575978602,
+      "top6_jaccard_vs_unbiased": 1.0,
+      "deficit_spearman_vs_unbiased": 0.9996122628341,
+      "deficit_top6_jaccard_vs_unbiased": 1.0
+    },
+    {
+      "offset": -0.025,
+      "old_mean_med": -1.1744634694461102,
+      "old_sd_med": 0.10855451899126581,
+      "avg_mean_med": -0.10328297208242075,
+      "new_mean_med": -0.05003205925438315,
+      "risk_top6": [
+        "131",
+        "129",
+        "141",
+        "127",
+        "15",
+        "143"
+      ],
+      "risk_rank_mode": [
+        "131",
+        "129",
+        "141",
+        "127",
+        "15",
+        "143"
+      ],
+      "n_censored_med": 8.0,
+      "deficit_top6": [
+        "131",
+        "141",
+        "139",
+        "145",
+        "15",
+        "143"
+      ],
+      "rmse_min_med": 0.09748144133121131,
+      "noise_rmse_med": 0.09811954422134325,
+      "rmse_min_over_noise_med": 0.993275703044667,
+      "old_shift": -0.13394952711349584,
+      "shift_over_sd": -1.3239894146386197,
+      "spearman_vs_unbiased": 0.9997414918505306,
+      "kendall_vs_unbiased": 0.9957983193277312,
+      "top6_jaccard_vs_unbiased": 1.0,
+      "deficit_spearman_vs_unbiased": 0.9999483017112132,
+      "deficit_top6_jaccard_vs_unbiased": 1.0
+    },
+    {
+      "offset": 0.0,
+      "old_mean_med": -1.0405139423326144,
+      "old_sd_med": 0.10117114656090895,
+      "avg_mean_med": -0.10276643496424166,
+      "new_mean_med": -0.05094508744983714,
+      "risk_top6": [
+        "131",
+        "129",
+        "141",
+        "127",
+        "15",
+        "143"
+      ],
+      "risk_rank_mode": [
+        "131",
+        "129",
+        "141",
+        "127",
+        "15",
+        "143"
+      ],
+      "n_censored_med": 7.0,
+      "deficit_top6": [
+        "131",
+        "141",
+        "139",
+        "145",
+        "15",
+        "143"
+      ],
+      "rmse_min_med": 0.09767875257976971,
+      "noise_rmse_med": 0.09811954422134325,
+      "rmse_min_over_noise_med": 0.9946452148565481,
+      "old_shift": 0.0,
+      "shift_over_sd": 0.0,
+      "spearman_vs_unbiased": 1.0,
+      "kendall_vs_unbiased": 1.0,
+      "top6_jaccard_vs_unbiased": 1.0,
+      "deficit_spearman_vs_unbiased": 0.9999999999999998,
+      "deficit_top6_jaccard_vs_unbiased": 1.0
+    },
+    {
+      "offset": 0.025,
+      "old_mean_med": -0.9231134255180526,
+      "old_sd_med": 0.08837847684595855,
+      "avg_mean_med": -0.10201624196575332,
+      "new_mean_med": -0.05189493608274186,
+      "risk_top6": [
+        "131",
+        "129",
+        "127",
+        "139",
+        "15",
+        "143"
+      ],
+      "risk_rank_mode": [
+        "131",
+        "129",
+        "127",
+        "139",
+        "15",
+        "143"
+      ],
+      "n_censored_med": 6.0,
+      "deficit_top6": [
+        "131",
+        "141",
+        "139",
+        "145",
+        "15",
+        "143"
+      ],
+      "rmse_min_med": 0.09819488596490904,
+      "noise_rmse_med": 0.09811954422134325,
+      "rmse_min_over_noise_med": 0.9999241748115677,
+      "old_shift": 0.11740051681456176,
+      "shift_over_sd": 1.1604150076907758,
+      "spearman_vs_unbiased": 0.9996639394056898,
+      "kendall_vs_unbiased": 0.9936974789915967,
+      "top6_jaccard_vs_unbiased": 0.7142857142857143,
+      "deficit_spearman_vs_unbiased": 0.9999999999999998,
+      "deficit_top6_jaccard_vs_unbiased": 1.0
+    },
+    {
+      "offset": 0.05,
+      "old_mean_med": -0.8192028744732133,
+      "old_sd_med": 0.07686822739996034,
+      "avg_mean_med": -0.10125462282596652,
+      "new_mean_med": -0.052926507191872335,
+      "risk_top6": [
+        "131",
+        "129",
+        "127",
+        "139",
+        "15",
+        "143"
+      ],
+      "risk_rank_mode": [
+        "131",
+        "129",
+        "127",
+        "139",
+        "15",
+        "143"
+      ],
+      "n_censored_med": 5.0,
+      "deficit_top6": [
+        "131",
+        "141",
+        "139",
+        "145",
+        "15",
+        "143"
+      ],
+      "rmse_min_med": 0.099038831141996,
+      "noise_rmse_med": 0.09811954422134325,
+      "rmse_min_over_noise_med": 1.0065397512023608,
+      "old_shift": 0.22131106785940113,
+      "shift_over_sd": 2.1874919419457535,
+      "spearman_vs_unbiased": 0.9996380885907429,
+      "kendall_vs_unbiased": 0.9926470588235295,
+      "top6_jaccard_vs_unbiased": 0.7142857142857143,
+      "deficit_spearman_vs_unbiased": 0.9999483017112132,
+      "deficit_top6_jaccard_vs_unbiased": 1.0
+    },
+    {
+      "offset": 0.1,
+      "old_mean_med": -0.6486414018184253,
+      "old_sd_med": 0.05889462457747972,
+      "avg_mean_med": -0.09934496820936085,
+      "new_mean_med": -0.055050086656583286,
+      "risk_top6": [
+        "131",
+        "129",
+        "139",
+        "127",
+        "141",
+        "15"
+      ],
+      "risk_rank_mode": [
+        "131",
+        "129",
+        "139",
+        "127",
+        "141",
+        "20"
+      ],
+      "n_censored_med": 5.0,
+      "deficit_top6": [
+        "131",
+        "141",
+        "139",
+        "145",
+        "15",
+        "129"
+      ],
+      "rmse_min_med": 0.10218448508227686,
+      "noise_rmse_med": 0.09811954422134325,
+      "rmse_min_over_noise_med": 1.0338825556407094,
+      "old_shift": 0.39187254051418907,
+      "shift_over_sd": 3.8733626516554955,
+      "spearman_vs_unbiased": 0.9993278788113794,
+      "kendall_vs_unbiased": 0.9884453781512607,
+      "top6_jaccard_vs_unbiased": 0.7142857142857143,
+      "deficit_spearman_vs_unbiased": 0.9997156594116734,
+      "deficit_top6_jaccard_vs_unbiased": 0.7142857142857143
+    }
+  ],
+  "offsets_swept": [
+    -0.1,
+    -0.05,
+    -0.025,
+    0.0,
+    0.025,
+    0.05,
+    0.1
+  ],
+  "offset_signs": "two-sided; censoring at the sensor floor makes the response asymmetric, so the negative arm is measured rather than mirrored (see Step 9)",
+  "location_note": "node 15 is one monitor, not the worst case; Step 8c sweeps all six and finds a larger displacement at monitor 231 (average zone)",
+  "shift025_over_shift050": 0.5304773861971797,
+  "shift_scaling": "sub-linear (concave)",
+  "informal_comparator_curvature": {
+    "threshold": 0.107,
+    "shift025_over_shift050": 0.45174868294481385,
+    "shift_scaling": "super-linear (convex)"
+  }
+}

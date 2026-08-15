@@ -1,0 +1,624 @@
+{
+  "weighting": "none \u2014 this step compares stored and re-simulated arrays and two git states; no ensemble is weighted",
+  "purpose": "close the evidence chain for the three whole-repository claims Step 15's own artifact does not cover",
+  "config_sha256": "c97826acf77701e06874f6ffdd5bd42d10af6d0cb7d0fff6109e2153b1dc69d9",
+  "full_library": {
+    "n_candidates": 8192,
+    "corrected_arm": "read from baseline_cache/baseline.npz \u2014 the cache the pipeline consumes",
+    "legacy_arm": "re-run live: initial_quality assigned raw, EPANET default tolerance 0.01",
+    "C_all_shape": [
+      8192,
+      49,
+      92
+    ],
+    "C_all_max_abs_diff_mg_L": 1.1920928955078125e-07,
+    "C_all_max_rel_diff": 2.328196826691007e-07,
+    "RMSE_max_rel_diff": 7.243995032603403e-08,
+    "loglik_censored_max_rel_diff": 1.3464134553841234e-07,
+    "loglik_iid_max_rel_diff": 1.4487989587351077e-07,
+    "sobol_draws_sha256": "e37039a51375c7fe4343abee2524ff2503b7eda38b7867c01c4d9ca83f36613f",
+    "sobol_draws_note": "both arms are driven by this same draw set, so the comparison isolates the configuration; the hash pins which design that was",
+    "runtime_s": 256.3
+  },
+  "artifact_regression": {
+    "pre_commit": "64ec7d37fd0965cf6c28edfacae2c513bc4cced2",
+    "post_commit": "3427a9dfe8f07c3ab556b08fc48b8a22594333b4",
+    "pre_ref": "64ec7d3",
+    "post_ref": "3427a9d",
+    "rel_tolerance": 0.0001,
+    "excluded_field_pattern": "(?i)(runtime|elapsed|generated_utc|_sha256|sha256_|git/|/git$|uncommitted|tree_sha|commit)",
+    "n_artifacts": 26,
+    "n_numeric_fields_compared": 4915,
+    "n_fields_excluded": 3,
+    "n_fields_changed": 34,
+    "changed_fields_by_magnitude_band": {
+      "magnitude < 1e-4 (discretisation-level quantity)": {
+        "n": 4,
+        "fields": [
+          "step13_known_answer.json:/bulk_arm/rows[0]/rel_error",
+          "step7_fisher.json:/fd_step_convergence/old/rows[3]/rel_change_vs_previous",
+          "step13_known_answer.json:/bulk_arm/rows[1]/rel_error",
+          "step12_scenarios.json:/dosing_linearity_check/max_abs_err_mgL"
+        ]
+      },
+      "absolute move < 1e-4": {
+        "n": 21,
+        "fields": [
+          "baseline_meta.json:/summary/sampling_convergence[3]/median_drift_in_prior_sd/old",
+          "step7_fisher.json:/fd_step_convergence/new/rows[2]/rel_change_vs_previous",
+          "step7b_profile.json:/continuous_profile/by_likelihood/iid/coef/new/half_width",
+          "step7b_profile.json:/continuous_profile/by_likelihood/censored/coef/new/half_width",
+          "step7b_profile.json:/continuous_profile/by_likelihood/iid/coef/new/hi",
+          "step7_fisher.json:/fd_step_convergence/old/crlb_spread_over_sweep",
+          "step7_fisher.json:/fd_step_convergence/old/rows[2]/rel_change_vs_previous",
+          "step7b_profile.json:/continuous_profile/by_likelihood/censored/kw_at_min[2]",
+          "step7b_profile.json:/continuous_profile/by_likelihood/censored/coef/average/half_width",
+          "step7_fisher.json:/fd_step_convergence/average/rows[2]/rel_change_vs_previous",
+          "step7b_profile.json:/continuous_profile/by_likelihood/censored/kw_at_min[1]",
+          "step7b_profile.json:/continuous_profile/by_likelihood/censored/coef/new/lo",
+          "step7b_profile.json:/continuous_profile/by_likelihood/iid/kw_at_min[1]",
+          "step7b_profile.json:/continuous_profile/by_likelihood/iid/kw_at_min[2]",
+          "step7b_profile.json:/continuous_profile/by_likelihood/iid/coef/new/lo",
+          "step7_fisher.json:/fd_step_convergence/new/crlb_spread_over_sweep",
+          "step7_fisher.json:/fd_step_convergence/new/rows[1]/rel_change_vs_previous",
+          "step7b_profile.json:/continuous_profile/by_likelihood/iid/coef/average/half_width",
+          "baseline_meta.json:/summary/sampling_convergence[2]/median_drift_in_prior_sd/old",
+          "step7b_profile.json:/continuous_profile/by_likelihood/censored/coef/new/hi",
+          "step7b_profile.json:/continuous_profile/by_likelihood/censored/coef/average/lo"
+        ]
+      },
+      "absolute move >= 1e-4": {
+        "n": 9,
+        "fields": [
+          "step7b_profile.json:/continuous_profile/by_likelihood/iid/coef/new/half_width_change_vs_grid_frac",
+          "step7b_profile.json:/continuous_profile/by_likelihood/censored/coef/new/half_width_change_vs_grid_frac",
+          "step7b_profile.json:/continuous_profile/by_likelihood/censored/coef/average/half_width_change_vs_grid_frac",
+          "step7b_profile.json:/continuous_profile/n_epanet_evaluations",
+          "step7b_profile.json:/continuous_profile/by_likelihood/iid/coef/average/half_width_change_vs_grid_frac",
+          "step8d_sensor_drift.json:/rows[0]/risk_kendall_vs_unbiased",
+          "step8d_sensor_drift.json:/rows[23]/risk_kendall_vs_unbiased",
+          "step0_warmup_convergence.json:/cycles[2]/age_max_dAge",
+          "step7b_profile.json:/continuous_profile/by_likelihood/censored/kw_at_min[0]"
+        ]
+      }
+    },
+    "changed_fields": [
+      {
+        "artifact": "step13_known_answer.json",
+        "field": "/bulk_arm/rows[0]/rel_error",
+        "pre": 6.770665495744744e-06,
+        "post": 6.6955476403398945e-06,
+        "rel_diff": 0.011094604430252761,
+        "abs_diff": 7.511785540484914e-08,
+        "magnitude": 6.770665495744744e-06
+      },
+      {
+        "artifact": "baseline_meta.json",
+        "field": "/summary/sampling_convergence[3]/median_drift_in_prior_sd/old",
+        "pre": 0.0001765670108510596,
+        "post": 0.00017500706795807255,
+        "rel_diff": 0.008834849077798187,
+        "abs_diff": 1.5599428929870664e-06,
+        "magnitude": 0.0001765670108510596
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/iid/coef/new/half_width_change_vs_grid_frac",
+        "pre": 0.28375783993470827,
+        "post": 0.2823620662610846,
+        "rel_diff": 0.004918890254961092,
+        "abs_diff": 0.001395773673623646,
+        "magnitude": 0.28375783993470827
+      },
+      {
+        "artifact": "step7_fisher.json",
+        "field": "/fd_step_convergence/new/rows[2]/rel_change_vs_previous",
+        "pre": 0.0001216246237163432,
+        "post": 0.00012103939661756158,
+        "rel_diff": 0.0048117484839788754,
+        "abs_diff": 5.852270987816155e-07,
+        "magnitude": 0.0001216246237163432
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/censored/coef/new/half_width_change_vs_grid_frac",
+        "pre": 0.2819893207481079,
+        "post": 0.28086339931991433,
+        "rel_diff": 0.003992780383336983,
+        "abs_diff": 0.0011259214281935659,
+        "magnitude": 0.2819893207481079
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/censored/coef/average/half_width_change_vs_grid_frac",
+        "pre": 0.14834370965397525,
+        "post": 0.14884052683410576,
+        "rel_diff": 0.0033379160279662637,
+        "abs_diff": 0.0004968171801305044,
+        "magnitude": 0.14884052683410576
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/n_epanet_evaluations",
+        "pre": 7770.0,
+        "post": 7792.0,
+        "rel_diff": 0.0028234086242299797,
+        "abs_diff": 22.0,
+        "magnitude": 7792.0
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/iid/coef/average/half_width_change_vs_grid_frac",
+        "pre": 0.14492018506299642,
+        "post": 0.14465469576321222,
+        "rel_diff": 0.0018319690915989213,
+        "abs_diff": 0.0002654892997842051,
+        "magnitude": 0.14492018506299642
+      },
+      {
+        "artifact": "step7_fisher.json",
+        "field": "/fd_step_convergence/old/rows[3]/rel_change_vs_previous",
+        "pre": 9.956789290299639e-05,
+        "post": 9.97251263470389e-05,
+        "rel_diff": 0.0015766682861382258,
+        "abs_diff": 1.5723344404250383e-07,
+        "magnitude": 9.97251263470389e-05
+      },
+      {
+        "artifact": "step13_known_answer.json",
+        "field": "/bulk_arm/rows[1]/rel_error",
+        "pre": 2.715145969444931e-05,
+        "post": 2.7189327160797863e-05,
+        "rel_diff": 0.0013927327485746288,
+        "abs_diff": 3.7867466348552814e-08,
+        "magnitude": 2.7189327160797863e-05
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/iid/coef/new/half_width",
+        "pre": 0.015244624349224665,
+        "post": 0.015228049536850384,
+        "rel_diff": 0.0010872562022247391,
+        "abs_diff": 1.6574812374280795e-05,
+        "magnitude": 0.015244624349224665
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/censored/coef/new/half_width",
+        "pre": 0.015223623183883785,
+        "post": 0.015210252866923988,
+        "rel_diff": 0.000878261160191589,
+        "abs_diff": 1.3370316959797346e-05,
+        "magnitude": 0.015223623183883785
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/iid/coef/new/hi",
+        "pre": -0.029558417471450896,
+        "post": -0.029576053032241555,
+        "rel_diff": 0.0005962783732986271,
+        "abs_diff": 1.7635560790658922e-05,
+        "magnitude": 0.029576053032241555
+      },
+      {
+        "artifact": "step7_fisher.json",
+        "field": "/fd_step_convergence/old/crlb_spread_over_sweep",
+        "pre": 0.0009941263250692334,
+        "post": 0.0009946764438499844,
+        "rel_diff": 0.0005530630429145171,
+        "abs_diff": 5.501187807510632e-07,
+        "magnitude": 0.0009946764438499844
+      },
+      {
+        "artifact": "step12_scenarios.json",
+        "field": "/dosing_linearity_check/max_abs_err_mgL",
+        "pre": 1.4215707778930664e-05,
+        "post": 1.420825719833374e-05,
+        "rel_diff": 0.0005241090146750524,
+        "abs_diff": 7.450580596923828e-09,
+        "magnitude": 1.4215707778930664e-05
+      },
+      {
+        "artifact": "step7_fisher.json",
+        "field": "/fd_step_convergence/old/rows[2]/rel_change_vs_previous",
+        "pre": 0.0008637480204924941,
+        "post": 0.0008641399908810854,
+        "rel_diff": 0.0004535959366857131,
+        "abs_diff": 3.919703885912895e-07,
+        "magnitude": 0.0008641399908810854
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/censored/kw_at_min[2]",
+        "pre": -0.044187452393523494,
+        "post": -0.04416823407746984,
+        "rel_diff": 0.00043492699878922367,
+        "abs_diff": 1.921831605365687e-05,
+        "magnitude": 0.044187452393523494
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/censored/coef/average/half_width",
+        "pre": 0.027560249031695405,
+        "post": 0.02757217264401854,
+        "rel_diff": 0.00043245095252659923,
+        "abs_diff": 1.1923612323133659e-05,
+        "magnitude": 0.02757217264401854
+      },
+      {
+        "artifact": "step7_fisher.json",
+        "field": "/fd_step_convergence/average/rows[2]/rel_change_vs_previous",
+        "pre": 0.0016081046778708696,
+        "post": 0.0016087942058220506,
+        "rel_diff": 0.0004285992258584774,
+        "abs_diff": 6.895279511809349e-07,
+        "magnitude": 0.0016087942058220506
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/censored/kw_at_min[1]",
+        "pre": -0.10709976461098777,
+        "post": -0.10713821870237714,
+        "rel_diff": 0.000358920391388852,
+        "abs_diff": 3.845409138936162e-05,
+        "magnitude": 0.10713821870237714
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/censored/coef/new/lo",
+        "pre": -0.05987515431516723,
+        "post": -0.059854199631434124,
+        "rel_diff": 0.000349972939072665,
+        "abs_diff": 2.0954683733108437e-05,
+        "magnitude": 0.05987515431516723
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/iid/kw_at_min[1]",
+        "pre": -0.10668534638777714,
+        "post": -0.1066486931974732,
+        "rel_diff": 0.0003435634934410269,
+        "abs_diff": 3.6653190303950756e-05,
+        "magnitude": 0.10668534638777714
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/iid/kw_at_min[2]",
+        "pre": -0.04434749345257458,
+        "post": -0.04436110722086985,
+        "rel_diff": 0.0003068852232990621,
+        "abs_diff": 1.3613768295270279e-05,
+        "magnitude": 0.04436110722086985
+      },
+      {
+        "artifact": "step8d_sensor_drift.json",
+        "field": "/rows[0]/risk_kendall_vs_unbiased",
+        "pre": 0.9936974789915967,
+        "post": 0.9934331837337923,
+        "rel_diff": 0.00026597154908007366,
+        "abs_diff": 0.0002642952578043589,
+        "magnitude": 0.9936974789915967
+      },
+      {
+        "artifact": "step8d_sensor_drift.json",
+        "field": "/rows[23]/risk_kendall_vs_unbiased",
+        "pre": 0.9986866643458165,
+        "post": 0.9989495798319329,
+        "rel_diff": 0.00026319194824685546,
+        "abs_diff": 0.0002629154861163441,
+        "magnitude": 0.9989495798319329
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/iid/coef/new/lo",
+        "pre": -0.060047666169900225,
+        "post": -0.06003215210594232,
+        "rel_diff": 0.0002583624801338128,
+        "abs_diff": 1.551406395790267e-05,
+        "magnitude": 0.060047666169900225
+      },
+      {
+        "artifact": "step7_fisher.json",
+        "field": "/fd_step_convergence/new/crlb_spread_over_sweep",
+        "pre": 0.011423084385276283,
+        "post": 0.01142038778339094,
+        "rel_diff": 0.0002360660041012536,
+        "abs_diff": 2.696601885343597e-06,
+        "magnitude": 0.011423084385276283
+      },
+      {
+        "artifact": "step7_fisher.json",
+        "field": "/fd_step_convergence/new/rows[1]/rel_change_vs_previous",
+        "pre": 0.009245917201042175,
+        "post": 0.009243739768862724,
+        "rel_diff": 0.00023550202020039229,
+        "abs_diff": 2.1774321794509888e-06,
+        "magnitude": 0.009245917201042175
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/iid/coef/average/half_width",
+        "pre": 0.027478084441511917,
+        "post": 0.027471712698317094,
+        "rel_diff": 0.00023188454815275357,
+        "abs_diff": 6.371743194823198e-06,
+        "magnitude": 0.027478084441511917
+      },
+      {
+        "artifact": "baseline_meta.json",
+        "field": "/summary/sampling_convergence[2]/median_drift_in_prior_sd/old",
+        "pre": 0.009334727116751195,
+        "post": 0.009336772098350684,
+        "rel_diff": 0.00021902447419168444,
+        "abs_diff": 2.0449815994888487e-06,
+        "magnitude": 0.009336772098350684
+      },
+      {
+        "artifact": "step0_warmup_convergence.json",
+        "field": "/cycles[2]/age_max_dAge",
+        "pre": 21.335342407226562,
+        "post": 21.339942932128906,
+        "rel_diff": 0.0002155828118648485,
+        "abs_diff": 0.00460052490234375,
+        "magnitude": 21.339942932128906
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/censored/coef/new/hi",
+        "pre": -0.029427907947399662,
+        "post": -0.029433693897586148,
+        "rel_diff": 0.0001965757409388823,
+        "abs_diff": 5.785950186486255e-06,
+        "magnitude": 0.029433693897586148
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/censored/coef/average/lo",
+        "pre": -0.13725763885132028,
+        "post": -0.13728186803048587,
+        "rel_diff": 0.00017649220187042648,
+        "abs_diff": 2.4229179165585757e-05,
+        "magnitude": 0.13728186803048587
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "field": "/continuous_profile/by_likelihood/censored/kw_at_min[0]",
+        "pre": -0.9715889021311889,
+        "post": -0.9717190194271876,
+        "rel_diff": 0.00013390423918579694,
+        "abs_diff": 0.0001301172959987662,
+        "magnitude": 0.9717190194271876
+      }
+    ],
+    "per_artifact": [
+      {
+        "artifact": "baseline_meta.json",
+        "status": "compared",
+        "n_fields": 220,
+        "n_changed": 2
+      },
+      {
+        "artifact": "cache_manifest.json",
+        "status": "compared",
+        "n_fields": 27,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step0_warmup_convergence.json",
+        "status": "compared",
+        "n_fields": 285,
+        "n_changed": 1
+      },
+      {
+        "artifact": "step10_risk_metrics.json",
+        "status": "compared",
+        "n_fields": 203,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step11_loo.json",
+        "status": "compared",
+        "n_fields": 373,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step12_scenarios.json",
+        "status": "compared",
+        "n_fields": 256,
+        "n_changed": 1
+      },
+      {
+        "artifact": "step13_known_answer.json",
+        "status": "compared",
+        "n_fields": 52,
+        "n_changed": 2
+      },
+      {
+        "artifact": "step14_repeated_noise.json",
+        "status": "compared",
+        "n_fields": 189,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step15_unit_equivalence.json",
+        "status": "new at POST",
+        "n_fields": null,
+        "n_changed": null
+      },
+      {
+        "artifact": "step3_threshold.json",
+        "status": "compared",
+        "n_fields": 69,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step4_displaced_prior.json",
+        "status": "compared",
+        "n_fields": 34,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step4b_sensitivity.json",
+        "status": "compared",
+        "n_fields": 511,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step4d_displaced_robust.json",
+        "status": "compared",
+        "n_fields": 155,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step5_structural_error.json",
+        "status": "compared",
+        "n_fields": 37,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step5c_jitter_sweep.json",
+        "status": "compared",
+        "n_fields": 211,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step5d_structured.json",
+        "status": "compared",
+        "n_fields": 184,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step6_noise_sensitivity.json",
+        "status": "compared",
+        "n_fields": 210,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step7_fisher.json",
+        "status": "compared",
+        "n_fields": 151,
+        "n_changed": 7
+      },
+      {
+        "artifact": "step7b_profile.json",
+        "status": "compared",
+        "n_fields": 62,
+        "n_changed": 19
+      },
+      {
+        "artifact": "step7c_ar1.json",
+        "status": "compared",
+        "n_fields": 81,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step7c_profile_ar1.json",
+        "status": "compared",
+        "n_fields": 24,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step8_sensor_bias.json",
+        "status": "compared",
+        "n_fields": 115,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step8b_kb_sensitivity.json",
+        "status": "compared",
+        "n_fields": 271,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step8c_bias_bynode.json",
+        "status": "compared",
+        "n_fields": 649,
+        "n_changed": 0
+      },
+      {
+        "artifact": "step8d_sensor_drift.json",
+        "status": "compared",
+        "n_fields": 493,
+        "n_changed": 2
+      },
+      {
+        "artifact": "step9_zeroclip.json",
+        "status": "compared",
+        "n_fields": 53,
+        "n_changed": 0
+      }
+    ]
+  },
+  "log_regression": {
+    "pre_commit": "64ec7d37fd0965cf6c28edfacae2c513bc4cced2",
+    "post_commit": "3427a9dfe8f07c3ab556b08fc48b8a22594333b4",
+    "number_regex": "(?<![\\w.])(?<!\\w-)(-?\\d+(?:\\.\\d+)?)(?![\\w.]*\\d)",
+    "n_numbers_at_post": 3582,
+    "n_numbers_at_pre": 3473,
+    "n_changes_after_alignment": 7,
+    "changes": [
+      {
+        "tag": "insert",
+        "pre": [],
+        "post": [
+          "15",
+          "1000",
+          "1",
+          "15",
+          "1000",
+          "15"
+        ]
+      },
+      {
+        "tag": "insert",
+        "pre": [],
+        "post": [
+          "90",
+          "3",
+          "256"
+        ]
+      },
+      {
+        "pre": "7770",
+        "post": "7792"
+      },
+      {
+        "pre": "0.991845",
+        "post": "0.991846"
+      },
+      {
+        "pre": "6.8",
+        "post": "6.7"
+      },
+      {
+        "tag": "insert",
+        "pre": [],
+        "post": [
+          "4",
+          "4",
+          "1",
+          "3",
+          "15",
+          "1.0"
+        ]
+      },
+      {
+        "tag": "insert",
+        "pre": [],
+        "post": [
+          "15",
+          "1000",
+          "1000",
+          "1.0",
+          "1",
+          "1000"
+        ]
+      }
+    ],
+    "alignment": "difflib.SequenceMatcher over the extracted number sequences, so inserted or deleted prose does not report every following number as changed"
+  },
+  "reproducibility": {
+    "part_A": "live; re-runs the legacy arm against the stored corrected cache",
+    "parts_B_and_C": "historical; read from git at the two recorded commits. They are NOT re-derivable from the working tree, because later work legitimately moved numbers afterwards. If the history is rewritten this step fails rather than silently reporting nothing"
+  }
+}

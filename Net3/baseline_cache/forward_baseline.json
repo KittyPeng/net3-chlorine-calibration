@@ -1,0 +1,25 @@
+{
+  "source": "baseline.npz truth_all, deterministic noise-free reference trajectory",
+  "window_h": [
+    120,
+    168
+  ],
+  "C_crit_mgL": 0.2,
+  "network_median_mgL": 0.7610102593898773,
+  "network_p5_p95_mgL": [
+    0.16788504123687745,
+    0.9560121327638622
+  ],
+  "monitor_window_mean_mgL": {
+    "107": 0.844976680619376,
+    "113": 0.8267242981463062,
+    "15": 0.25059082685988776,
+    "145": 0.3550660996792876,
+    "209": 0.7165023477710023,
+    "231": 0.37378660787125023
+  },
+  "n_junctions": 92,
+  "n_junctions_min_below_C_crit": 21,
+  "definition_of_count": "#{n : min_t C_true(n,t) < C_crit over the window}",
+  "not_to_be_confused_with": "step12 scenario_summary P_min_gt_0.5_nodes (ensemble-weighted)"
+}

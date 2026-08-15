@@ -1,0 +1,416 @@
+{
+  "C_MIN": 0.2,
+  "threshold": 0.107,
+  "T_window_h": 48,
+  "n_nodes": 92,
+  "reporting_resolution_sensitivity": {
+    "n_members": 12,
+    "steps_s": [
+      3600,
+      900,
+      300
+    ],
+    "quality_timestep_s": 300,
+    "rows": [
+      {
+        "report_timestep_s": 3600,
+        "points_in_window": 49,
+        "net_mean_E_duration_h": 3.435993599380032,
+        "net_mean_E_deficit": 0.21800540914372551,
+        "top10_jaccard_vs_hourly": 1.0,
+        "top10": [
+          "131",
+          "141",
+          "139",
+          "145",
+          "15",
+          "143",
+          "129",
+          "253",
+          "255",
+          "50"
+        ]
+      },
+      {
+        "report_timestep_s": 900,
+        "points_in_window": 193,
+        "net_mean_E_duration_h": 3.3741415080874986,
+        "net_mean_E_deficit": 0.21592936950974054,
+        "top10_jaccard_vs_hourly": 1.0,
+        "top10": [
+          "131",
+          "141",
+          "139",
+          "145",
+          "15",
+          "143",
+          "50",
+          "129",
+          "253",
+          "255"
+        ]
+      },
+      {
+        "report_timestep_s": 300,
+        "points_in_window": 577,
+        "net_mean_E_duration_h": 3.379565543964557,
+        "net_mean_E_deficit": 0.21640892798291803,
+        "top10_jaccard_vs_hourly": 1.0,
+        "top10": [
+          "131",
+          "141",
+          "139",
+          "145",
+          "15",
+          "143",
+          "50",
+          "129",
+          "253",
+          "255"
+        ]
+      }
+    ],
+    "hourly_to_finest_rel_change": {
+      "E_duration": -0.01642263112063327,
+      "E_deficit": -0.00732312637139645
+    }
+  },
+  "primary_weighting": "formal_censored",
+  "weighting_diagnostics": {
+    "formal_censored": {
+      "n_candidates": 8192,
+      "n_nonzero": 8192,
+      "ess": 156.70066648599496,
+      "ess_frac": 0.01912849932690368,
+      "max_weight": 0.017795510086883362,
+      "entropy_bits": 7.972558001693333,
+      "entropy_bits_if_uniform": 13.0
+    },
+    "informal_glue": {
+      "n_candidates": 8192,
+      "n_nonzero": 4786,
+      "ess": 4782.910196478075,
+      "ess_frac": 0.583851342343515,
+      "max_weight": 0.00021992204672639286,
+      "entropy_bits": 12.22413845271749,
+      "entropy_bits_if_uniform": 13.0
+    }
+  },
+  "network_averages": {
+    "n_consumer_junctions": 59,
+    "total_demand_L_s": 690.690397272975,
+    "by_metric": {
+      "E_duration_h": {
+        "unweighted_all_junctions": 3.430888301071372,
+        "consumer_only": 4.4609617222845745,
+        "demand_weighted": 1.2310892537827651
+      },
+      "E_deficit": {
+        "unweighted_all_junctions": 0.21813512408585045,
+        "consumer_only": 0.3053008282251105,
+        "demand_weighted": 0.07984969575229632
+      },
+      "min_C": {
+        "unweighted_all_junctions": 0.49223432929370803,
+        "consumer_only": 0.4412260695641956,
+        "demand_weighted": 0.6348189545499732
+      }
+    }
+  },
+  "cross_scheme_robustness": {
+    "formal_censored": {
+      "ess": 156.70066648599496,
+      "net_mean_E_duration_h": 3.430888301071372,
+      "net_mean_E_deficit": 0.21813512408585045,
+      "node15_E_duration_h": 22.00065938015127,
+      "node15_duration_5_95": [
+        22.0,
+        22.0
+      ],
+      "top10": [
+        "131",
+        "141",
+        "139",
+        "145",
+        "15",
+        "143",
+        "129",
+        "253",
+        "255",
+        "50"
+      ],
+      "top10_jaccard_vs_primary": 1.0
+    },
+    "informal_glue": {
+      "ess": 4782.910196478075,
+      "net_mean_E_duration_h": 3.4169263954274243,
+      "net_mean_E_deficit": 0.22073826392691273,
+      "node15_E_duration_h": 21.36122939755529,
+      "node15_duration_5_95": [
+        14.0,
+        24.0
+      ],
+      "top10": [
+        "131",
+        "141",
+        "139",
+        "145",
+        "15",
+        "143",
+        "129",
+        "253",
+        "255",
+        "243"
+      ],
+      "top10_jaccard_vs_primary": 0.8181818181818182
+    }
+  },
+  "age_risk_association": {
+    "status": "descriptive only",
+    "spearman_dur": 0.7284887947994313,
+    "spearman_def": 0.7219383796644234,
+    "pearson_dur": 0.8611002483510226,
+    "n_junctions": 92,
+    "p_value": null,
+    "p_value_omitted_because": "the 92 junctions share pipes, tanks and demand patterns, so they are not independent samples; a p-value computed at n = 92 (previously quoted as ~1e-16) tests a null hypothesis that does not apply here",
+    "iid_bootstrap_omitted_because": "same reason: resampling individual junctions assumes the independence that fails",
+    "block_bootstrap": {
+      "n_blocks": 10,
+      "block_rule": "k-means on standardised node coordinates; whole blocks resampled with replacement",
+      "n_resamples": 2000,
+      "ci95_spearman_dur": [
+        0.45459737981257814,
+        0.8970105592662537
+      ],
+      "interpretation": "a conservative width for the rank correlation, not a significance test"
+    }
+  },
+  "age_windows": {
+    "mean_age_h": "primary: mean over the post-warm-up record (120-168 h)",
+    "mean_age_last24_h": "mean over the last diurnal cycle (144-168 h)",
+    "age_final_h": "single final reporting hour (t = 168 h)",
+    "why": "water age is still rising at the high-age nodes, so the window choice moves the number; all three are stored to keep the log verifiable"
+  },
+  "top10": [
+    {
+      "node": "131",
+      "dur_mean": 47.99602282149989,
+      "dur_5_95": [
+        48.0,
+        48.0
+      ],
+      "deficit_mean": 4.220525443242744,
+      "deficit_5_95": [
+        4.11403491266741,
+        4.323371516797027
+      ],
+      "minC_5_50_95": [
+        0.03339934985933927,
+        0.034107689898922,
+        0.034873498318170215
+      ],
+      "frac": 0.999917142114581,
+      "mean_age_h": 70.20146942138672,
+      "mean_age_last24_h": 72.54390716552734,
+      "age_final_h": 54.608642578125
+    },
+    {
+      "node": "141",
+      "dur_mean": 22.32774863324523,
+      "dur_5_95": [
+        20.0,
+        24.0
+      ],
+      "deficit_mean": 2.2040651583342283,
+      "deficit_5_95": [
+        2.075326437309527,
+        2.3478993209146477
+      ],
+      "minC_5_50_95": [
+        0.06356636151832701,
+        0.06766008021077746,
+        0.07160556332090928
+      ],
+      "frac": 0.4651614298592756,
+      "mean_age_h": 50.809322357177734,
+      "mean_age_last24_h": 54.26411056518555,
+      "age_final_h": 114.35879516601562
+    },
+    {
+      "node": "139",
+      "dur_mean": 21.999999999999975,
+      "dur_5_95": [
+        22.0,
+        22.0
+      ],
+      "deficit_mean": 1.8235909200755172,
+      "deficit_5_95": [
+        1.7337079020061152,
+        1.912770824113227
+      ],
+      "minC_5_50_95": [
+        0.09894172061087854,
+        0.1024344260010468,
+        0.10585249917590776
+      ],
+      "frac": 0.4583333333333328,
+      "mean_age_h": 53.7945442199707,
+      "mean_age_last24_h": 56.66400909423828,
+      "age_final_h": 77.19039154052734
+    },
+    {
+      "node": "145",
+      "dur_mean": 12.001209436756287,
+      "dur_5_95": [
+        12.0,
+        12.0
+      ],
+      "deficit_mean": 1.67934531502159,
+      "deficit_5_95": [
+        1.6240264325283873,
+        1.7313575420891283
+      ],
+      "minC_5_50_95": [
+        0.0275317537703858,
+        0.030586694410185713,
+        0.0338239404822683
+      ],
+      "frac": 0.25002519659908934,
+      "mean_age_h": 31.319400787353516,
+      "mean_age_last24_h": 33.543209075927734,
+      "age_final_h": 84.52681732177734
+    },
+    {
+      "node": "15",
+      "dur_mean": 22.00065938015127,
+      "dur_5_95": [
+        22.0,
+        22.0
+      ],
+      "deficit_mean": 1.378325510369124,
+      "deficit_5_95": [
+        1.1573615427275774,
+        1.5910336773382556
+      ],
+      "minC_5_50_95": [
+        0.05059254804361234,
+        0.055268635947631234,
+        0.05980714429196343
+      ],
+      "frac": 0.4583470704198181,
+      "mean_age_h": 38.861534118652344,
+      "mean_age_last24_h": 41.878990173339844,
+      "age_final_h": 114.35879516601562
+    },
+    {
+      "node": "143",
+      "dur_mean": 21.986621217942638,
+      "dur_5_95": [
+        22.0,
+        22.0
+      ],
+      "deficit_mean": 1.1617703356097036,
+      "deficit_5_95": [
+        0.9522388293888154,
+        1.3650052818383855
+      ],
+      "minC_5_50_95": [
+        0.057062944009780715,
+        0.06157194709692229,
+        0.06599349775502478
+      ],
+      "frac": 0.45805460870713827,
+      "mean_age_h": 39.57413101196289,
+      "mean_age_last24_h": 42.63068771362305,
+      "age_final_h": 114.35879516601562
+    },
+    {
+      "node": "129",
+      "dur_mean": 23.99999999999996,
+      "dur_5_95": [
+        24.0,
+        24.0
+      ],
+      "deficit_mean": 0.8403573406493723,
+      "deficit_5_95": [
+        0.8012403507912268,
+        0.8801463697288663
+      ],
+      "minC_5_50_95": [
+        0.14540066421556874,
+        0.14690297731941804,
+        0.1483572635543056
+      ],
+      "frac": 0.49999999999999917,
+      "mean_age_h": 53.23466491699219,
+      "mean_age_last24_h": 54.723628997802734,
+      "age_final_h": 5.28374719619751
+    },
+    {
+      "node": "253",
+      "dur_mean": 7.9999999999999645,
+      "dur_5_95": [
+        8.0,
+        8.0
+      ],
+      "deficit_mean": 0.7529009432840169,
+      "deficit_5_95": [
+        0.7200443010957893,
+        0.7879995340774146
+      ],
+      "minC_5_50_95": [
+        0.09445212096385378,
+        0.09902010545746816,
+        0.10309986215141227
+      ],
+      "frac": 0.16666666666666594,
+      "mean_age_h": 30.295969009399414,
+      "mean_age_last24_h": 33.178348541259766,
+      "age_final_h": 120.0748519897461
+    },
+    {
+      "node": "255",
+      "dur_mean": 7.9999999999999645,
+      "dur_5_95": [
+        8.0,
+        8.0
+      ],
+      "deficit_mean": 0.6988934988911611,
+      "deficit_5_95": [
+        0.6705744228250321,
+        0.7297190265973942
+      ],
+      "minC_5_50_95": [
+        0.10423064035050002,
+        0.10804515522203102,
+        0.11146818269010692
+      ],
+      "frac": 0.16666666666666594,
+      "mean_age_h": 29.645883560180664,
+      "mean_age_last24_h": 32.496795654296875,
+      "age_final_h": 120.0748519897461
+    },
+    {
+      "node": "50",
+      "dur_mean": 7.9999999999999645,
+      "dur_5_95": [
+        8.0,
+        8.0
+      ],
+      "deficit_mean": 0.6832340608119906,
+      "deficit_5_95": [
+        0.6568814265215748,
+        0.7116202696139543
+      ],
+      "minC_5_50_95": [
+        0.10651871273477419,
+        0.10999518139615973,
+        0.11319376654899278
+      ],
+      "frac": 0.16666666666666594,
+      "mean_age_h": 31.290170669555664,
+      "mean_age_last24_h": 34.122337341308594,
+      "age_final_h": 120.0748519897461
+    }
+  ]
+}

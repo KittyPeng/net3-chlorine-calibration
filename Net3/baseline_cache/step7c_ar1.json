@@ -1,0 +1,146 @@
+{
+  "rho": 0.4,
+  "ess_factor": 1.5275252316519468,
+  "n_eff": 126.00000000000001,
+  "fd_default_steps": {
+    "old": 0.02,
+    "average": 0.005,
+    "new": 0.0025
+  },
+  "coef": {
+    "old": {
+      "crlb_indep": 0.09473378211259842,
+      "crlb_ar1": 0.14063942574506702,
+      "widening": 1.4845752234182543,
+      "crlb_over_prior_indep": 0.25243649817258484,
+      "crlb_over_prior_ar1": 0.3747609706734869
+    },
+    "average": {
+      "crlb_indep": 0.013509088195860386,
+      "crlb_ar1": 0.02007585351072537,
+      "widening": 1.486099818111873,
+      "crlb_over_prior_indep": 0.2924803389894896,
+      "crlb_over_prior_ar1": 0.43465497857357943
+    },
+    "new": {
+      "crlb_indep": 0.007955984212458134,
+      "crlb_ar1": 0.011436611998917958,
+      "widening": 1.4374855069482881,
+      "crlb_over_prior_indep": 0.2901088185303863,
+      "crlb_over_prior_ar1": 0.4170272220753213
+    }
+  },
+  "rho_sweep": [
+    {
+      "rho": 0.0,
+      "n_eff": 294.0,
+      "ess_factor": 1.0,
+      "coef": {
+        "old": {
+          "crlb": 0.0947337382890466,
+          "widening_vs_indep": 0.9999995374031223,
+          "crlb_over_prior": 0.25243638139624897
+        },
+        "average": {
+          "crlb": 0.013509087998662104,
+          "widening_vs_indep": 0.9999999854025469,
+          "crlb_over_prior": 0.29248033472002155
+        },
+        "new": {
+          "crlb": 0.007955984346052084,
+          "widening_vs_indep": 1.000000016791631,
+          "crlb_over_prior": 0.29010882340178645
+        }
+      }
+    },
+    {
+      "rho": 0.2,
+      "n_eff": 196.00000000000003,
+      "ess_factor": 1.224744871391589,
+      "coef": {
+        "old": {
+          "crlb": 0.11504330415527149,
+          "widening_vs_indep": 1.2143852128539916,
+          "crlb_over_prior": 0.3065551505654307
+        },
+        "average": {
+          "crlb": 0.016388002892100084,
+          "widening_vs_indep": 1.2131094752288232,
+          "crlb_over_prior": 0.35481067054628807
+        },
+        "new": {
+          "crlb": 0.009550173363124864,
+          "widening_vs_indep": 1.2003761078573305,
+          "crlb_over_prior": 0.3482396944425937
+        }
+      }
+    },
+    {
+      "rho": 0.4,
+      "n_eff": 126.00000000000001,
+      "ess_factor": 1.5275252316519468,
+      "coef": {
+        "old": {
+          "crlb": 0.14063942574506702,
+          "widening_vs_indep": 1.4845752234182543,
+          "crlb_over_prior": 0.3747609706734869
+        },
+        "average": {
+          "crlb": 0.02007585351072537,
+          "widening_vs_indep": 1.486099818111873,
+          "crlb_over_prior": 0.43465497857357943
+        },
+        "new": {
+          "crlb": 0.011436611998917958,
+          "widening_vs_indep": 1.4374855069482881,
+          "crlb_over_prior": 0.4170272220753213
+        }
+      }
+    },
+    {
+      "rho": 0.6,
+      "n_eff": 73.5,
+      "ess_factor": 2.0,
+      "coef": {
+        "old": {
+          "crlb": 0.17364974698146457,
+          "widening_vs_indep": 1.833028758157976,
+          "crlb_over_prior": 0.4627233607590414
+        },
+        "average": {
+          "crlb": 0.025238287612643056,
+          "widening_vs_indep": 1.8682450841039642,
+          "crlb_over_prior": 0.5464249555141749
+        },
+        "new": {
+          "crlb": 0.013545831004073871,
+          "widening_vs_indep": 1.7025965163257484,
+          "crlb_over_prior": 0.4939382637852144
+        }
+      }
+    },
+    {
+      "rho": 0.8,
+      "n_eff": 32.66666666666666,
+      "ess_factor": 3.0000000000000004,
+      "coef": {
+        "old": {
+          "crlb": 0.20221288343149124,
+          "widening_vs_indep": 2.134538270531051,
+          "crlb_over_prior": 0.538835366228224
+        },
+        "average": {
+          "crlb": 0.03334620835069395,
+          "widening_vs_indep": 2.468427762645912,
+          "crlb_over_prior": 0.7219665887897436
+        },
+        "new": {
+          "crlb": 0.014458805612616216,
+          "widening_vs_indep": 1.8173497114254489,
+          "crlb_over_prior": 0.5272291776381755
+        }
+      }
+    }
+  ],
+  "rho_is_assumed": "the baseline observations are generated iid, so this is an assumed-covariance sensitivity analysis, not an estimate of rho"
+}

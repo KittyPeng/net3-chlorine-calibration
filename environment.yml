@@ -1,0 +1,44 @@
+
+# Declared environment for the Net3 chlorine calibration study.
+#
+# The name and the pins below match the environment that PRODUCED every result in
+# Net3/baseline_cache/ and Net3/RESULTS_LOG.md; see Net3/baseline_cache/cache_manifest.json for the
+# exact versions recorded alongside the cache. Numerical packages are pinned exactly, because a
+# change in them can move reported digits; interactive tooling is left loose.
+#
+# Create and verify:
+#   conda env create -f environment.yml
+#   conda activate water-supply
+#   cd Net3 && python provenance.py --check
+#
+# environment.lock.yml holds the full transitive solve if an exact rebuild is needed.
+name: water-supply
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  # Python 3.12+ is required, not incidental: wntr's EPANET toolkit loader imports
+  # `pkg_resources` only on Python <= 3.11 and `importlib.resources` above it, so on 3.13 the
+  # setuptools < 81 workaround that older versions of this file carried is unnecessary.
+  - python=3.13.12
+
+  # Numerical stack — pinned, results-affecting
+  - numpy=2.4.2
+  - scipy=1.17.1
+  - pandas=2.3.3
+  - matplotlib=3.10.8
+
+  # Notebooks (exploration only; the pipeline is plain scripts)
+  - jupyterlab>=4.5
+  - ipywidgets>=8.0
+
+  # WNTR is not on conda-forge -> install from PyPI via pip.
+  # The PyPI wheel ships the EPANET binary for macOS arm64 / x86_64 / Linux / Windows.
+  - pip
+  - pip:
+      - wntr==1.4.0
+
+# Deliberately NOT dependencies:
+#   SALib / pyDOE2 — quasi-random and Latin-hypercube sampling for the planned sampling-convergence
+#     work is available in scipy.stats.qmc, so neither package is needed.
+#   setuptools<81 — see the python pin above.

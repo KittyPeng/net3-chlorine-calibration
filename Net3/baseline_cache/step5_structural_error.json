@@ -1,0 +1,87 @@
+{
+  "weighting": "informal_glue",
+  "weighting_role": "comparator; SUPERSEDED by step5c (jitter ensemble, formal primary) and step5d (structured heterogeneity, formal primary). A single jitter field and the informal score cannot separate a structural bias from either the field drawn or the score's own offset.",
+  "primary_weighting_elsewhere": "formal_censored",
+  "jitter": 0.2,
+  "jitter_seed": 12345,
+  "noise_floor_rmse": 0.09732424080753001,
+  "noise_floor_rmse_full_record": 0.09599656236880391,
+  "structural_min_rmse_noisefree": 0.0067725758999586105,
+  "structural_best_homogeneous": [
+    -1.067,
+    -0.093,
+    -0.052
+  ],
+  "gridsearch_best_fit_noisy": [
+    -1.067,
+    -0.12,
+    -0.037
+  ],
+  "gridsearch_best_rmse": 0.09752994060329004,
+  "glue_behavioural": {
+    "old": {
+      "mean": -1.0302593851362056,
+      "sd": 0.2600580425341478
+    },
+    "average": {
+      "mean": -0.11555951669938291,
+      "sd": 0.042132296183692464
+    },
+    "new": {
+      "mean": -0.04815072374778285,
+      "sd": 0.023380464826885855
+    }
+  },
+  "true_reference": {
+    "old": {
+      "n_pipes": 14,
+      "arith_mean": -1.0065878287383072,
+      "length_weighted": -0.9888370185934631,
+      "min": -1.1727953444543935,
+      "max": -0.8020089334868528,
+      "zone_mean": -1.0
+    },
+    "average": {
+      "n_pipes": 37,
+      "arith_mean": -0.09782160920118237,
+      "length_weighted": -0.09575912941286863,
+      "min": -0.11891319209590234,
+      "max": -0.08038848511181812,
+      "zone_mean": -0.1
+    },
+    "new": {
+      "n_pipes": 66,
+      "arith_mean": -0.048731112859736574,
+      "length_weighted": -0.046882248151419635,
+      "min": -0.058977623036666364,
+      "max": -0.040547674438542375,
+      "zone_mean": -0.05
+    }
+  },
+  "behavioural_count": 4613,
+  "rmse_min": 0.09734044976413853,
+  "risk_rank_glue": [
+    "131",
+    "129",
+    "127",
+    "141",
+    "139",
+    "15"
+  ],
+  "risk_rank_true": [
+    "131",
+    "141",
+    "129",
+    "127",
+    "139",
+    "143"
+  ],
+  "risk_rank_baseline_reported": [
+    "131",
+    "243",
+    "141",
+    "139",
+    "15",
+    "143"
+  ]
+}

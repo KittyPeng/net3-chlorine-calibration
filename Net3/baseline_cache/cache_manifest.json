@@ -1,0 +1,136 @@
+{
+  "generated_utc": "2026-08-17T23:20:33+00:00",
+  "git": {
+    "commit": "97dc0efab3d98cc84e53854f040ee97e812df4ef",
+    "dirty": false,
+    "dirty_files": [],
+    "tree_sha256": "c9904b75f6dc918af835534b1c0a0c4abcf8fb27a0b6fc08ed404f48554748f8",
+    "uncommitted_diff_sha256": null,
+    "repository": "the author's working repository, which is not the published one; these identifiers cannot be resolved from the release. Verify the release with provenance.py --check, which uses the per-file digests under `code`."
+  },
+  "net3_inp": "models/net3_frozen/Net3.inp",
+  "net3_inp_sha256": "ea3e825c4fef0b5cba47fb06301bc85253f18b6364dc96c44d9fb492c40faa52",
+  "baseline_npz_sha256": "3973e0b6aa377d66cdc8da7fe9c8aadd2442e4a9265932174ee6e35bcc5ff889",
+  "config": {
+    "monitor_nodes": [
+      "107",
+      "113",
+      "15",
+      "145",
+      "209",
+      "231"
+    ],
+    "inlet_mgl": 1.0,
+    "tank_init_mgl": 0.5,
+    "duration_h": 168,
+    "warmup_h": 120,
+    "hydraulic_timestep_s": 3600,
+    "report_timestep_s": 3600,
+    "quality_timestep_s": 300,
+    "kb_fixed": -0.5,
+    "kw_true": [
+      -1.0,
+      -0.1,
+      -0.05
+    ],
+    "prior": {
+      "old": [
+        -1.5,
+        -0.2
+      ],
+      "avg": [
+        -0.2,
+        -0.04
+      ],
+      "new": [
+        -0.1,
+        -0.005
+      ]
+    },
+    "n_mc": 8192,
+    "sigma_obs": 0.1,
+    "rmse_thr_primary": 0.107,
+    "rmse_thr_draft": 0.12,
+    "n_resid": 294,
+    "noise_seed": 42,
+    "sample_seed": 0,
+    "zone_rule": {
+      "y_low": 10.0,
+      "x_mid": 26.0,
+      "cross_zone": "weaker (newer) side wins"
+    },
+    "concentration_unit": "mg/L at every interface; kg/m^3 inside WNTR, converted in wq_common.build_model / run_model / simulate_chlorine",
+    "quality_tolerance_mg_L": 1e-05
+  },
+  "config_sha256": "607f2034a7204b3e50512e7ba597d290d8d469024b4d2af920c583201775e782",
+  "wq_common_sha256": "036df283a0864ab3ffa0179016e2d203febffecfe536d9d9c7d8fe99cde60a9a",
+  "code": {
+    "wq_common_sha256": "036df283a0864ab3ffa0179016e2d203febffecfe536d9d9c7d8fe99cde60a9a",
+    "provenance_sha256": "28a6d8104500309afc72cd7e808cfc4c7f6d6cbf5ebbb592cef7ead2cfe3c1ae",
+    "step_scripts_sha256": {
+      "step0_warmup_convergence.py": "b5159780738b92748a79258584335ed79c6f61e83e5cef2a55e0422d44f0ccea",
+      "step10_risk_metrics.py": "34b014eb9f48e18b39d1ae57c899cf69ff5b1a8a5336b6bc1403ff0079915715",
+      "step11_loo.py": "fccc844c071473ccaa4c7003b837c97f40312b4782c84c5ffa12d60b2cfb6701",
+      "step12_scenarios.py": "0c51ce807c7c71f698fd73f4702a74113a8f225b23fed3f8d09f36f19846342c",
+      "step13_known_answer.py": "8452eda4801bd3ae2552e128e86a49a6359bb63a19008c120c607b016ce3d372",
+      "step14_repeated_noise.py": "f459d34c88fd5551bf2401e5cc625c77d928824fa0eb839ce1b00e571f0d5421",
+      "step15_unit_equivalence.py": "58ac6c1e617fd45ae47fd0ff1c47415ff8b83b9981364b881e4a6d27fb3397c7",
+      "step15b_full_regression.py": "fda023de2236ebe75c8fd46f9cdfb89a01f215253ffcab3cd130ed2e9c16c8e0",
+      "step1_freeze_baseline.py": "cd84fb37081364263e5400a771c6993fe097377ac4122a1119bf867d16c0de55",
+      "step3_threshold_sensitivity.py": "8abd4e3822eb9424cd7f54e0b324aae9d549a916a14481ac2b30aa6114508275",
+      "step4_displaced_prior.py": "7f859a1a8a7a5c82adeaa38cdc84b2a97d1c01e6261d691b0e6963ccd4b35f20",
+      "step4b_sensitivity_curves.py": "bc378f21cfc6adf1f21bd256f62fb99feb64e6d50bc2d0d039be5a8886af24a9",
+      "step4d_displaced_robust.py": "acc98f05648e12291c0cef9fe0ca33b27b4b183d3053d7e52aca4e95fc47f299",
+      "step5_structural_error.py": "cf8e6ccd5425c85cf57e94b10649f999807d704d467e7ae5f1f76c1f241e75c2",
+      "step5c_jitter_sweep.py": "2b59329583a8b74d787f61078984314c05b10b71903691d5fd9d1d6b2c2b02e1",
+      "step5d_structured.py": "3e6caf5c75563743560c84b3120a9d56b0b9df07a610df1a0a0047e8e3f13771",
+      "step6_noise_sensitivity.py": "c6355a601f9a619b50a77357ab61dfa5dc261f47a270be8833ea632d70711ec8",
+      "step7_fisher.py": "ef637ff8e6049ee6255f825412b041a6baaf18c70ef91cdf6f11c2844b4a920f",
+      "step7_verify.py": "3ffafc40ff22d4218753dae01f3ba77eb87634facbf387994ec6d4cde858109f",
+      "step7b_profile.py": "faca5625e0f54b7ae1b09de41b0b0fd326ab4cc4b433238d412dc68912e35fab",
+      "step7c_ar1.py": "7592ae96f7de7e953ee15dc4e8a4259462342113106070f7c7df0d7df58ea001",
+      "step7c_profile_ar1.py": "baf9e19f77e7ffa1d3814f4eab54da8d631faaf009dd8be1704c5db64de6ba53",
+      "step8_sensor_bias.py": "2c3dda5b3c23b80f90fd047a0bb7312d2ea2be0cd54025977872ad3aa80fdd66",
+      "step8b_kb_sensitivity.py": "72104a64a74cc046bbc30a3310eaf2ac3e85e10efa48e6a115d2135ffb0cedcc",
+      "step8c_bias_bynode.py": "c19da108b19fe794d67ad776f4221e1edf265b33e57b5944e4478cf165ac5bcd",
+      "step8d_sensor_drift.py": "f1f3c70db4f6d57b7d5904c91eb5af5989471838459babb13a5d550746d92c7b",
+      "step9_zeroclip.py": "67b5af39f3a81ea14bb2efcb0073d02bbe5ec81113376282877efe1be668a81c"
+    },
+    "step_scripts_combined_sha256": "3baccc56f3c05e3bd03f0d80dc52ba7e946bd9ed434d45105c8103a6dc0af3d2",
+    "presentation_sha256": {
+      "paper_figs.py": "25ae9641e446189251f1a66a8a198a6736d139e66eae64b03f31c9c2424facf5",
+      "appendix_tables.py": "35b7abe470e70bfbf8265fba2bacaa5680059526f7c01b14399d02077f5e82b2"
+    },
+    "generated_tables_sha256": {
+      "tables.md": "459f1ddc4666dec3b1be8b84ccac9e69b125c83c9a39faf167e172b7721a3b34",
+      "appendix_tables.md": "709d5446686d12211b6d2bdbd4c56f68d42fcaba817882544e55db0d80f9d689"
+    },
+    "paper_figures_sha256": {
+      "fig1_study_design.png": "639745b47b66a51fac03d410665a0077182d369808c0e2874b5c056dc1e5794e",
+      "fig2_inference_rule_dependence.png": "69b124cc997ce546ef247242d9e10c6937a7b07461664a8af837dc15b80af897",
+      "fig3_triangulated_identifiability.png": "182d0f1813973fcc4c25563a7a82d5cf31fa774ed967b45ba2ad35da78eae778",
+      "fig4_standardised_effects.png": "927fba65d5f196c0352cc93b11e17ece8c272de804964f5869d7ed09d85c7a4c",
+      "fig5_symmetric_vs_structured.png": "4d5b401f859e7e187d697eebd4b65c4ff8c18ed794d18be957acf4354b128dc7",
+      "fig6_prediction_without_identification.png": "85bcfdced9f00e2233f2c5b57b1f1c73d4ee0ef90cf87ed397aa58001dbee7ea",
+      "fig7_metric_specific_risk.png": "c52278e121578ec00dbe57652812cefa126bb98797cec7b93d7a3c884772d2d5"
+    }
+  },
+  "critical_fields": [
+    "config_sha256",
+    "net3_inp_sha256",
+    "wq_common_sha256",
+    "wntr",
+    "numpy",
+    "scipy",
+    "python_minor"
+  ],
+  "scope": "These hashes identify the code and environment that produced the cache. They do NOT make the results reconstructible from the manifest alone when git.uncommitted_diff_sha256 is non-null: the diff itself is not stored, only identified. A release should be tagged from a clean tree, where that field is null and git.tree_sha256 fully determines the source.",
+  "python": "3.13.12",
+  "python_minor": "3.13",
+  "numpy": "2.4.2",
+  "scipy": "1.17.1",
+  "wntr": "1.4.0",
+  "conda_env": "water-supply",
+  "sys_prefix": "/opt/anaconda3/envs/water-supply",
+  "pandas": "2.3.3"
+}
