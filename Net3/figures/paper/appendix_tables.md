@@ -197,34 +197,34 @@ Table E4. Length-structured amplitude sweep over 30 noise realisations. Entries 
 
 ## F1
 
-Table F1. Coefficient displacement in every arm of the sensor-bias sweep, under the primary rule, in baseline posterior standard deviations. Table F2 gives what the same arms do to the risk ranking.
+Table F1. Coefficient displacement in every arm of the sensor-bias sweep, under the primary rule, in baseline posterior standard deviations. A starred ESS is below the median-ESS criterion of Section 2.5.1, so that arm's displacement rests on a coarser library resolution than the rest. Table F2 gives what the same arms do to the risk ranking.
 
-| Node | Zone | Offset (mg L-1) | old | average | new | Median censored points |
-|---|---|---|---|---|---|---|
-| 107 | new | -0.100 | +0.91 | +1.59 | -3.84 | 7 |
-| 113 | new | -0.100 | +1.01 | +1.82 | -4.44 | 7 |
-| 15 | old | -0.100 | -3.82 | +0.08 | +0.14 | 13 |
-| 145 | old | -0.100 | -3.31 | +0.48 | -0.80 | 12 |
-| 209 | average | -0.100 | +0.74 | -1.89 | -2.66 | 7 |
-| 231 | average | -0.100 | -0.29 | -5.94 | +0.74 | 7 |
-| 107 | new | -0.050 | +0.50 | +0.83 | -1.92 | 7 |
-| 113 | new | -0.050 | +0.57 | +0.97 | -2.24 | 7 |
-| 15 | old | -0.050 | -2.59 | -0.04 | +0.20 | 9 |
-| 145 | old | -0.050 | -1.89 | +0.19 | -0.34 | 9 |
-| 209 | average | -0.050 | +0.40 | -0.79 | -1.38 | 7 |
-| 231 | average | -0.050 | -0.17 | -3.25 | +0.59 | 7 |
-| 107 | new | +0.050 | -0.52 | -0.91 | +1.85 | 7 |
-| 113 | new | +0.050 | -0.59 | -1.02 | +2.08 | 7 |
-| 15 | old | +0.050 | +2.19 | +0.11 | -0.25 | 5 |
-| 145 | old | +0.050 | +1.59 | -0.16 | +0.34 | 4 |
-| 209 | average | +0.050 | -0.41 | +0.60 | +1.33 | 7 |
-| 231 | average | +0.050 | +0.11 | +2.72 | -0.59 | 7 |
-| 107 | new | +0.100 | -1.04 | -1.85 | +3.62 | 7 |
-| 113 | new | +0.100 | -1.13 | -2.02 | +3.97 | 7 |
-| 15 | old | +0.100 | +3.87 | +0.25 | -0.51 | 5 |
-| 145 | old | +0.100 | +2.95 | -0.31 | +0.66 | 4 |
-| 209 | average | +0.100 | -0.82 | +1.10 | +2.58 | 7 |
-| 231 | average | +0.100 | +0.05 | +4.22 | -0.58 | 7 |
+| Node | Zone | Offset (mg L-1) | old | average | new | Median censored points | Median ESS |
+|---|---|---|---|---|---|---|---|
+| 107 | new | -0.100 | +0.91 | +1.59 | -3.84 | 7 | 133 |
+| 113 | new | -0.100 | +1.01 | +1.82 | -4.44 | 7 | 116 |
+| 15 | old | -0.100 | -3.82 | +0.08 | +0.14 | 13 | 77 * |
+| 145 | old | -0.100 | -3.31 | +0.48 | -0.80 | 12 | 127 |
+| 209 | average | -0.100 | +0.74 | -1.89 | -2.66 | 7 | 224 |
+| 231 | average | -0.100 | -0.29 | -5.94 | +0.74 | 7 | 123 |
+| 107 | new | -0.050 | +0.50 | +0.83 | -1.92 | 7 | 145 |
+| 113 | new | -0.050 | +0.57 | +0.97 | -2.24 | 7 | 144 |
+| 15 | old | -0.050 | -2.59 | -0.04 | +0.20 | 9 | 173 |
+| 145 | old | -0.050 | -1.89 | +0.19 | -0.34 | 9 | 181 |
+| 209 | average | -0.050 | +0.40 | -0.79 | -1.38 | 7 | 188 |
+| 231 | average | -0.050 | -0.17 | -3.25 | +0.59 | 7 | 206 |
+| 107 | new | +0.050 | -0.52 | -0.91 | +1.85 | 7 | 171 |
+| 113 | new | +0.050 | -0.59 | -1.02 | +2.08 | 7 | 172 |
+| 15 | old | +0.050 | +2.19 | +0.11 | -0.25 | 5 | 121 |
+| 145 | old | +0.050 | +1.59 | -0.16 | +0.34 | 4 | 131 |
+| 209 | average | +0.050 | -0.41 | +0.60 | +1.33 | 7 | 139 |
+| 231 | average | +0.050 | +0.11 | +2.72 | -0.59 | 7 | 114 |
+| 107 | new | +0.100 | -1.04 | -1.85 | +3.62 | 7 | 174 |
+| 113 | new | +0.100 | -1.13 | -2.02 | +3.97 | 7 | 167 |
+| 15 | old | +0.100 | +3.87 | +0.25 | -0.51 | 5 | 94 * |
+| 145 | old | +0.100 | +2.95 | -0.31 | +0.66 | 4 | 112 |
+| 209 | average | +0.100 | -0.82 | +1.10 | +2.58 | 7 | 121 |
+| 231 | average | +0.100 | +0.05 | +4.22 | -0.58 | 7 | 36 * |
 
 ## F2
 
@@ -314,6 +314,42 @@ Table G3. Scenario draw specification. One draw per retained ensemble member is 
 | Draws resampled at the bound | 0 |
 | Common random numbers | True |
 
+## G4
+
+Table G4. Assessment-window sensitivity of the Section 3.6.2 shortlist comparisons. The calibration stays on the 120 to 168 h monitor series throughout; only the window over which the two risk metrics are integrated moves, to the adjacent cycle pair. Appendix A records that the deficit and water-age criteria are not met inside the horizon, so the risk field is not warm-up converged and the individual overlaps are expected to move; the question is whether the comparison between the two metrics moves with them. The 120 to 168 h rows reproduce the corresponding entries of Table 4. Every arm is a median over 30 noise realisations, matching Steps 8b and 8c.
+
+| Perturbation | Risk window (h) | Duration $\rho_s$ | Duration top-6 J | Deficit $\rho_s$ | Deficit top-6 J | Deficit at least as well preserved |
+|---|---|---|---|---|---|---|
+| $k_b$ = −0.4 | 120 to 168 | 0.975 | 0.50 | 0.980 | 1.00 | yes |
+|  | 96 to 144 | 0.977 | 0.71 | 0.981 | 1.00 | yes |
+| $k_b$ = −0.6 | 120 to 168 | 0.934 | 0.50 | 0.935 | 0.71 | yes |
+|  | 96 to 144 | 0.934 | 0.33 | 0.935 | 1.00 | yes |
+| Sensor bias, node 15, +0.10 mg L-1 | 120 to 168 | 0.999 | 0.71 | 1.000 | 0.71 | yes |
+|  | 96 to 144 | 0.999 | 0.71 | 1.000 | 0.71 | yes |
+| Sensor bias, node 231, −0.10 mg L-1 | 120 to 168 | 1.000 | 1.00 | 1.000 | 1.00 | yes |
+|  | 96 to 144 | 1.000 | 1.00 | 1.000 | 1.00 | yes |
+
+## G5
+
+Table G5. Shortlist-size sensitivity of the Table 4 comparisons, under a 20 per cent error in bulk decay. The main text reports k = 6. Under the underestimate the deficit shortlist is at least as well preserved at every size, better at 4 of the five and equal at 1. Under the overestimate it is better at 3 and worse at k = 10 and 15. The metric-specific advantage therefore belongs to the small shortlist an operator would act on rather than to ranking in general, which is the scale the section claims it at. The two metrics respond to shortlist size in opposite directions. Duration overlap is lowest at k = 3 and rises with every increase in k, whereas deficit overlap reaches its highest value by k = 5 and falls back at k = 10 and 15, where the ranking is decided by junctions whose risk is near zero.
+
+| Perturbation | Ranking metric | k = 3 | k = 5 | k = 6 | k = 10 | k = 15 |
+|---|---|---|---|---|---|---|
+| $k_b$ = −0.4 | Duration, $\bar{P}$ | 0.20 | 0.43 | 0.50 | 0.54 | 0.67 |
+|  | Deficit, E[A] | 0.50 | 1.00 | 1.00 | 0.67 | 0.67 |
+| $k_b$ = −0.6 | Duration, $\bar{P}$ | 0.20 | 0.43 | 0.50 | 0.82 | 0.88 |
+|  | Deficit, E[A] | 1.00 | 1.00 | 0.71 | 0.67 | 0.76 |
+
+## G6
+
+Table G6. Kendall rank correlation beside Spearman, on the duration ranking, over every arm of the two sweeps that computed both. Step 8 sweeps the offset at node 15 alone, so it is narrower than the 24-arm by-monitor sweep of Table F1, which did not compute Kendall. Its zero-offset row is excluded here because it compares the unbiased field with itself. Step 8d's drift ramps are separated from the constant-offset controls they are paired against. The two coefficients agree that whole-network rank order survives sensor error. Kendall is the lower of the two throughout, because it penalises each discordant pair rather than each squared rank displacement, so reading it in place of the Spearman values quoted in Section 3.6.2 would lower those figures slightly and change nothing that section concludes.
+
+| Perturbation family | Arms | Spearman range | Kendall range |
+|---|---|---|---|
+| Constant offset at node 15 (Step 8) | 6 | 0.9993 to 0.9997 | 0.9884 to 0.9958 |
+| Linear drift at nodes 15 and 231 (Step 8d) | 8 | 0.9996 to 1.0000 | 0.9926 to 0.9989 |
+| Constant-offset controls for those ramps (Step 8d) | 16 | 0.9993 to 1.0000 | 0.9884 to 0.9989 |
+
 ## H1
 
 Table H1. Risk banding. The likelihood and severity axes are scored 1 to 5 on the criteria below and consequence 0 to 3; a risk score is the axis score times the consequence score, and the band follows from that score. The severity edges are pre-declared hours rather than quantiles of this network's own results, so the same scale applies across scenarios. The governing band is the higher of the breach-probability band and the severity band, since neither axis alone may reduce an action.
@@ -342,7 +378,7 @@ Table H1. Risk banding. The likelihood and severity axes are scored 1 to 5 on th
 
 ## H2
 
-Table H2. Risk register, quantitative half, all 92 junctions ordered by expected cumulative deficit. P min is the probability of at least one breach in the window, under the baseline and under the two warmer scenarios; the remaining columns are baseline. Table H3 carries the same junctions in the same order.
+Table H2. Risk register, quantitative half, all 92 junctions ordered by expected cumulative deficit. The reference condition throughout is Scenario A, which is the 12 degree Celsius mean carrying the prescribed temperature and activation-energy uncertainty of Table G3, and not the exact-reference-temperature calibrated field of Section 3.6.1. The two differ: the network-mean expected deficit is 0.2181 mg L-1 h at the exact reference temperature against 0.2216 under Scenario A, while the count of junctions more likely than not to breach and the demand they serve are identical at 21 and 55.4 L s-1. P min is the probability of at least one breach in the window, under Scenario A and under the two warmer scenarios. The remaining columns are Scenario A. Table H3 carries the same junctions in the same order.
 
 | node | P_min | P_min, heatwave | P_min, heatwave + ageing | P_bar | E[D] (h) | E[A] (mg L-1 h) | Demand (L s-1) |
 |---|---|---|---|---|---|---|---|

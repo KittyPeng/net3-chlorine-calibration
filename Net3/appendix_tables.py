@@ -284,7 +284,8 @@ for r in s8c["rows"]:
         continue
     key = [r["node"], r["zone"], "%+.3f" % r["offset"]]
     coef.append(key + ["%+.2f" % r["d_old_over_sd"], "%+.2f" % r["d_avg_over_sd"],
-                       "%+.2f" % r["d_new_over_sd"], int(r["n_censored_med"])])
+                       "%+.2f" % r["d_new_over_sd"], int(r["n_censored_med"]),
+                       "%.0f%s" % (r["ess_med"], " *" if r["sampling_limited"] else "")])
     rank.append(key + ["%.4f" % r["risk_spearman_vs_unbiased"],
                        "%.2f" % r["risk_top6_jaccard_vs_unbiased"],
                        "%.2f" % r["deficit_top6_jaccard_vs_unbiased"]])
@@ -295,10 +296,11 @@ for r in s8c["rows"]:
 # the same three columns so a reader can line up any arm across the two.
 add("F1",
     "Table F1. Coefficient displacement in every arm of the sensor-bias sweep, under the primary "
-    "rule, in baseline posterior standard deviations. Table F2 gives what the same arms do to the "
-    "risk ranking.",
+    "rule, in baseline posterior standard deviations. A starred ESS is below the median-ESS "
+    "criterion of Section 2.5.1, so that arm's displacement rests on a coarser library resolution "
+    "than the rest. Table F2 gives what the same arms do to the risk ranking.",
     table(coef, ["Node", "Zone", "Offset (mg L-1)", "old", "average", "new",
-                 "Median censored points"]))
+                 "Median censored points", "Median ESS"]))
 
 add("F2",
     "Table F2. Rank statistics for the same arms as Table F1, comparing the 92-junction risk "
@@ -382,6 +384,106 @@ add("G3",
            ["Common random numbers", u["common_random_numbers"]]],
           ["Quantity", "Specification"]))
 
+s16 = load("step16_window_sensitivity.json")
+lo, hi = s16["risk_windows_h"][s16["paper_window"]]
+rows, seen = [], None
+for r in s16["rows"]:
+    a, b = s16["risk_windows_h"][r["window"]]
+    if r["arm"].startswith("k_b="):
+        lab = "$k_b$ = " + r["arm"][4:].replace("-", "\u2212")
+    else:                                     # "bias <node><signed offset>"
+        node, off = r["arm"][5:-5], r["arm"][-5:]
+        lab = "Sensor bias, node %s, %s mg L-1" % (node, off.replace("-", "\u2212"))
+    rows.append([lab if r["arm"] != seen else "", "%d to %d" % (a, b),
+                 "%.3f" % r["duration"]["spearman"], "%.2f" % r["duration"]["top6_jaccard"],
+                 "%.3f" % r["deficit"]["spearman"], "%.2f" % r["deficit"]["top6_jaccard"],
+                 "yes" if r["deficit"]["top6_jaccard"] >= r["duration"]["top6_jaccard"] else "no"])
+    seen = r["arm"]
+add("G4",
+    "Table G4. Assessment-window sensitivity of the Section 3.6.2 shortlist comparisons. The "
+    "calibration stays on the %d to %d h monitor series throughout; only the window over which "
+    "the two risk metrics are integrated moves, to the adjacent cycle pair. Appendix A records "
+    "that the deficit and water-age criteria are not met inside the horizon, so the risk field "
+    "is not warm-up converged and the individual overlaps are expected to move; the question is "
+    "whether the comparison between the two metrics moves with them. The %d to %d h rows "
+    "reproduce the corresponding entries of Table 4. Every arm is a median over %d noise "
+    "realisations, matching Steps 8b and 8c."
+    % (s16["calibration_window_h"][0], s16["calibration_window_h"][1], lo, hi, s16["n_noise"]),
+    table(rows, ["Perturbation", "Risk window (h)", "Duration $\\rho_s$", "Duration top-6 J",
+                 "Deficit $\\rho_s$", "Deficit top-6 J", "Deficit at least as well preserved"]))
+
+# Section 2.8.3 names two supplementary ranking diagnostics, Kendall correlation and alternative
+# shortlist sizes. Both were computed and neither was shown, which left a methods statement with no
+# reported result behind it. They are tabulated here from the artifacts that already held them.
+s8b = load("step8b_kb_sensitivity.json")
+KS = ["top3", "top5", "top6", "top10", "top15"]
+rows = []
+for kb in (-0.4, -0.6):
+    r = next(x for x in s8b["rows"] if x["kb"] == kb)["by_scheme"][s8b["primary_weighting"]]
+    for name, src_d in (("Duration, $\\bar{P}$", r["topk_jaccard_vs_kb_ref"]),
+                        ("Deficit, E[A]", r["depth_deficit"]["topk_jaccard_vs_kb_ref"])):
+        rows.append(["$k_b$ = \u2212%.1f" % abs(kb) if name.startswith("Duration") else "",
+                     name] + ["%.2f" % src_d[k] for k in KS])
+# counted rather than transcribed, because a hand-written "better at n of five" drifts silently
+cmp_k = {}
+for kb in (-0.4, -0.6):
+    r = next(x for x in s8b["rows"] if x["kb"] == kb)["by_scheme"][s8b["primary_weighting"]]
+    d, a = r["topk_jaccard_vs_kb_ref"], r["depth_deficit"]["topk_jaccard_vs_kb_ref"]
+    cmp_k[kb] = (sum(a[k] > d[k] for k in KS), sum(abs(a[k] - d[k]) < 1e-12 for k in KS),
+                 [k[3:] for k in KS if a[k] < d[k]])
+add("G5",
+    "Table G5. Shortlist-size sensitivity of the Table 4 comparisons, under a 20 per cent error in "
+    "bulk decay. The main text reports k = 6. Under the underestimate the deficit shortlist is at "
+    "least as well preserved at every size, better at %d of the five and equal at %d. Under the "
+    "overestimate it is better at %d and worse at k = %s. The metric-specific advantage therefore "
+    "belongs to the small shortlist an operator would act on rather than to ranking in general, "
+    "which is the scale the section claims it at. The two metrics respond to shortlist size in "
+    "opposite directions. Duration overlap is lowest at k = 3 and rises with every increase in "
+    "k, whereas deficit overlap reaches its highest value by k = 5 and falls back at k = 10 "
+    "and 15, where the ranking is decided by junctions whose risk is near zero."
+    % (cmp_k[-0.4][0], cmp_k[-0.4][1], cmp_k[-0.6][0], " and ".join(cmp_k[-0.6][2])),
+    table(rows, ["Perturbation", "Ranking metric"] + ["k = %s" % k[3:] for k in KS]))
+
+s8 = load("step8_sensor_bias.json")
+s8d = load("step8d_sensor_drift.json")
+
+
+def rng(vals):
+    v = sorted(vals)
+    return "%.4f to %.4f" % (v[0], v[-1])
+
+
+# Step 8 sweeps one monitor and includes a zero-offset row, which compares the unbiased field with
+# itself: leaving it in put a 1.0000 at the top of both ranges that no arm earned. Step 8d's 24 rows
+# are 8 drift ramps and their 16 constant-offset controls, not 24 drift arms. Both are split here.
+bias_arms = [r for r in s8["rows"] if r["offset"] != 0.0]
+drift = [r for r in s8d["rows"] if r["arm"] == "drift"]
+ctrl = [r for r in s8d["rows"] if r["arm"] != "drift"]
+
+
+add("G6",
+    "Table G6. Kendall rank correlation beside Spearman, on the duration ranking, over every arm "
+    "of the two sweeps that computed both. Step 8 sweeps the offset at node %s alone, so it is "
+    "narrower than the %d-arm by-monitor sweep of Table F1, which did not compute Kendall. Its "
+    "zero-offset row is excluded here because it compares the unbiased field with itself. Step "
+    "8d's drift ramps are separated from the constant-offset controls they are paired against. "
+    "The two coefficients agree that whole-network rank order survives sensor error. Kendall is "
+    "the lower of the two throughout, because it penalises each discordant pair rather than each "
+    "squared rank displacement, so reading it in place of the Spearman values quoted in Section "
+    "3.6.2 would lower those figures slightly and change nothing that section concludes."
+    % (s8["bias_node"], len([r for r in load("step8c_bias_bynode.json")["rows"]
+                             if r["scheme"] == "formal_censored"])),
+    table([["Constant offset at node %s (Step 8)" % s8["bias_node"], len(bias_arms),
+            rng([r["spearman_vs_unbiased"] for r in bias_arms]),
+            rng([r["kendall_vs_unbiased"] for r in bias_arms])],
+           ["Linear drift at nodes 15 and 231 (Step 8d)", len(drift),
+            rng([r["risk_spearman_vs_unbiased"] for r in drift]),
+            rng([r["risk_kendall_vs_unbiased"] for r in drift])],
+           ["Constant-offset controls for those ramps (Step 8d)", len(ctrl),
+            rng([r["risk_spearman_vs_unbiased"] for r in ctrl]),
+            rng([r["risk_kendall_vs_unbiased"] for r in ctrl])]],
+          ["Perturbation family", "Arms", "Spearman range", "Kendall range"]))
+
 # ---------------------------------------------------------------- H: banding, then the register
 # The register's last three columns were uninterpretable on their own: the caption used to say the
 # banding rules were in the main text, and they were not there. They are generated here from the
@@ -445,9 +547,18 @@ RENAME.update({"P_min_current": "P_min", "P_min_heatwave": "P_min, heatwave",
 head = lambda ks: [RENAME.get(k, k.replace("_current", "").replace("_", " ")) for k in ks]
 add("H2",
     "Table H2. Risk register, quantitative half, all 92 junctions ordered by expected cumulative "
-    "deficit. P min is the probability of at least one breach in the window, under the baseline "
-    "and under the two warmer scenarios; the remaining columns are baseline. Table H3 carries the "
-    "same junctions in the same order.",
+    "deficit. The reference condition throughout is Scenario A, which is the 12 degree Celsius "
+    "mean carrying the prescribed temperature and activation-energy uncertainty of Table G3, and "
+    "not the exact-reference-temperature calibrated field of Section 3.6.1. The two differ: the "
+    "network-mean expected deficit is %.4f mg L-1 h at the exact reference temperature against "
+    "%.4f under Scenario A, while the count of junctions more likely than not to breach and the "
+    "demand they serve are identical at %d and %.1f L s-1. P min is the probability of at least "
+    "one breach in the window, under Scenario A and under the two warmer scenarios. The remaining "
+    "columns are Scenario A. Table H3 carries the same junctions in the same order."
+    % (s12["reference_at_T_ref_exact"]["net_mean_E_deficit"],
+       s12["scenario_summary"][0]["net_mean_E_deficit"],
+       s12["reference_at_T_ref_exact"]["P_min_gt_0.5_nodes"],
+       s12["reference_at_T_ref_exact"]["demand_at_risk_L_s"]),
     table([[r[k] for k in QUANT] for r in ordered], head(QUANT)))
 add("H3",
     "Table H3. Risk register, banded half, in the order of Table H2. Likelihood, severity and "

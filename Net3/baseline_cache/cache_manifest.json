@@ -1,10 +1,10 @@
 {
-  "generated_utc": "2026-08-17T23:20:33+00:00",
+  "generated_utc": "2026-08-18T12:11:17+00:00",
   "git": {
-    "commit": "97dc0efab3d98cc84e53854f040ee97e812df4ef",
+    "commit": "380eef352145d2ac27578aaa12868451136d12d5",
     "dirty": false,
     "dirty_files": [],
-    "tree_sha256": "c9904b75f6dc918af835534b1c0a0c4abcf8fb27a0b6fc08ed404f48554748f8",
+    "tree_sha256": "15b5b39311630ee89e418664e4a1f2dafde15de5492a1fd726cb4e9c2cdf7e27",
     "uncommitted_diff_sha256": null,
     "repository": "the author's working repository, which is not the published one; these identifiers cannot be resolved from the release. Verify the release with provenance.py --check, which uses the per-file digests under `code`."
   },
@@ -92,18 +92,18 @@
       "step7c_profile_ar1.py": "baf9e19f77e7ffa1d3814f4eab54da8d631faaf009dd8be1704c5db64de6ba53",
       "step8_sensor_bias.py": "2c3dda5b3c23b80f90fd047a0bb7312d2ea2be0cd54025977872ad3aa80fdd66",
       "step8b_kb_sensitivity.py": "72104a64a74cc046bbc30a3310eaf2ac3e85e10efa48e6a115d2135ffb0cedcc",
-      "step8c_bias_bynode.py": "c19da108b19fe794d67ad776f4221e1edf265b33e57b5944e4478cf165ac5bcd",
+      "step8c_bias_bynode.py": "e7b00f91fb4b4dde0e50583392465ad5048bbb6679282a4ed9e960806c112542",
       "step8d_sensor_drift.py": "f1f3c70db4f6d57b7d5904c91eb5af5989471838459babb13a5d550746d92c7b",
       "step9_zeroclip.py": "67b5af39f3a81ea14bb2efcb0073d02bbe5ec81113376282877efe1be668a81c"
     },
-    "step_scripts_combined_sha256": "3baccc56f3c05e3bd03f0d80dc52ba7e946bd9ed434d45105c8103a6dc0af3d2",
+    "step_scripts_combined_sha256": "59c7871271bb732114b683b95e71dda0b0ea0eae5bd31ed9b7c159ee32732b3f",
     "presentation_sha256": {
       "paper_figs.py": "25ae9641e446189251f1a66a8a198a6736d139e66eae64b03f31c9c2424facf5",
-      "appendix_tables.py": "35b7abe470e70bfbf8265fba2bacaa5680059526f7c01b14399d02077f5e82b2"
+      "appendix_tables.py": "cf35b8673392caaefe07102b564d0826cab9f15746ccd7bcab92a06f5be0a6a3"
     },
     "generated_tables_sha256": {
       "tables.md": "459f1ddc4666dec3b1be8b84ccac9e69b125c83c9a39faf167e172b7721a3b34",
-      "appendix_tables.md": "709d5446686d12211b6d2bdbd4c56f68d42fcaba817882544e55db0d80f9d689"
+      "appendix_tables.md": "478784d2ad85c2ea9d267792a20c1c3e214a6349e7b89f4621c59ae166f853a7"
     },
     "paper_figures_sha256": {
       "fig1_study_design.png": "639745b47b66a51fac03d410665a0077182d369808c0e2874b5c056dc1e5794e",

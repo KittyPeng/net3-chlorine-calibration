@@ -20,6 +20,7 @@ import wq_common as B
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ZKEYS = ["old", "average", "new"]
+ESS_MIN = 100          # the same threshold Section 2.5.1 declares and step6 applies
 ZONE_OF = {"107": "new", "113": "new", "15": "old", "145": "old", "209": "average", "231": "average"}
 
 cache = np.load(os.path.join(HERE, "baseline_cache", "baseline.npz"), allow_pickle=True)
@@ -42,7 +43,8 @@ TOP_K = 6
 
 def run(bcol, off):
     """Median coefficient means/SDs, median risk field and censoring count over the noise seeds."""
-    out = {s: {"means": {z: [] for z in ZKEYS}, "sds": {z: [] for z in ZKEYS}, "P": [], "A": []}
+    out = {s: {"means": {z: [] for z in ZKEYS}, "sds": {z: [] for z in ZKEYS}, "P": [], "A": [],
+               "ess": [], "maxw": []}
            for s in SCHEMES}
     n_clipped = []
     rmse_mins, noise_rmses = [], []
@@ -65,9 +67,15 @@ def run(bcol, off):
         noise_rmses.append(float(np.sqrt(((obs_unbiased - truth_mon[B.WARMUP_H:]) ** 2).mean())))
         wts = B.all_weightings(C_all_mon, obs, threshold=B.RMSE_THR, schemes=SCHEMES)
         for s in SCHEMES:
-            w, _ = wts[s]
+            # the diagnostics used to be discarded here. Section 2.5.1 declares median ESS < 100 a
+            # sampling-limited row and Section 3.3.1 applies it to the noise sweep, so the same
+            # criterion has to be checkable for these arms; without it a displacement quoted from a
+            # concentrated arm cannot be told apart from one the library actually resolves.
+            w, diag = wts[s]
             if w is None:
                 continue
+            out[s]["ess"].append(float(diag["ess"]))
+            out[s]["maxw"].append(float(w.max()))
             for z in ZKEYS:
                 m, sd = B.weighted_mean_sd(w, S[z])
                 out[s]["means"][z].append(m)
@@ -78,8 +86,12 @@ def run(bcol, off):
     for s in SCHEMES:
         P_med = np.median(np.vstack(out[s]["P"]), axis=0)
         A_med = np.median(np.vstack(out[s]["A"]), axis=0)
+        ess = np.asarray(out[s]["ess"], float)
         res[s] = {"means": {z: float(np.median(out[s]["means"][z])) for z in ZKEYS},
                   "sds": {z: float(np.median(out[s]["sds"][z])) for z in ZKEYS},
+                  "ess_med": float(np.median(ess)), "ess_p5": float(np.percentile(ess, 5)),
+                  "ess_min": float(ess.min()), "maxw_med": float(np.median(out[s]["maxw"])),
+                  "sampling_limited": bool(np.median(ess) < ESS_MIN),
                   "P": P_med, "A": A_med,
                   "top": [ALL_NODES[i] for i in np.argsort(P_med)[::-1][:TOP_K]],
                   "top_deficit": [ALL_NODES[i] for i in np.argsort(A_med)[::-1][:TOP_K]]}
@@ -138,6 +150,9 @@ for s in SCHEMES:
                 "d_old": d["old"], "d_avg": d["average"], "d_new": d["new"],
                 "d_old_over_sd": dsd["old"], "d_avg_over_sd": dsd["average"],
                 "d_new_over_sd": dsd["new"], "own_shift_over_sd": dsd[own],
+                "ess_med": r["ess_med"], "ess_p5": r["ess_p5"], "ess_min": r["ess_min"],
+                "maxw_med": r["maxw_med"], "sampling_limited": r["sampling_limited"],
+                "sd_same_arm": r["sds"],
                 "n_censored_med": clip, **fit, "risk_spearman_vs_unbiased": rho,
                 f"risk_top{TOP_K}_jaccard_vs_unbiased": jac, f"top{TOP_K}": r["top"],
                 "deficit_spearman_vs_unbiased": rho_A,
@@ -158,6 +173,13 @@ report["summary"] = {
     "max_rmse_min_over_noise": max(r["rmse_min_over_noise_med"] for r in prim),
     # the same bound as a percentage excess, which is the form the paper states it in
     "max_residual_excess_pct": 100 * (max(r["rmse_min_over_noise_med"] for r in prim) - 1),
+    # how many arms fail the resolution criterion the study sets for itself, and which they are.
+    # Reported rather than dropped, exactly as the sampling-limited noise rows are in Section 3.3.1.
+    "n_arms_sampling_limited": sum(1 for r in prim if r["sampling_limited"]),
+    "sampling_limited_arms": [f"{r['node']}@{r['offset']:+.2f}" for r in prim
+                              if r["sampling_limited"]],
+    "ess_med_min_over_arms": min(r["ess_med"] for r in prim),
+    "ess_criterion": f"median ESS < {ESS_MIN}, the criterion of Section 2.5.1",
     "min_risk_spearman": min(r["risk_spearman_vs_unbiased"] for r in prim),
     f"min_risk_top{TOP_K}_jaccard": min(r[f"risk_top{TOP_K}_jaccard_vs_unbiased"] for r in prim),
     # The paper states how many of the 24 arms move the duration shortlist. That count was read

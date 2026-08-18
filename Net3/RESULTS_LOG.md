@@ -183,6 +183,7 @@ python step13_known_answer.py           # analytic known-answer test
 python step14_repeated_noise.py         # ~10 s (cache only, 100 noise realisations)
 python step15_unit_equivalence.py       # ~90 s (3 x 256 EPANET runs; no cache)
 python step15b_full_regression.py       # full-library + artifact + log regression; re-runs
+python step16_window_sensitivity.py     # ~13 min (3 x 8192 forward runs; no cache)
                                         # the 8192 legacy arm and reads two git commits
 python provenance.py                    # refresh baseline_cache/cache_manifest.json
 python validate_artifacts.py            # cross-check the documents against the artifacts
@@ -3038,6 +3039,18 @@ every number comes from a script and a named artifact. `step15b_full_regression.
 whole comparison and writes `step15_full_regression.json`. Running it did not merely confirm the old
 bullets — **two of the three were wrong**, and the corrected figures are below.
 
+**Part A reported nothing for a while, and reported it as a pass.** The reuse condition on the
+candidate loop was the intended rule inverted: with no cached result to reuse it simulated zero
+candidates and wrote five zero differences, and with a usable cache it paid for 8192 EPANET runs and
+then discarded them. Zero difference is also what success looks like here, so the failure was
+invisible in the artifact. Found while re-running this step under the current configuration, fixed,
+and re-run for real: **every reported figure is bit-identical to what was already recorded**, so no
+published number was ever affected — the bug was latent, not active. The artifact now carries
+`n_candidates_compared`, which separates "compared 8192 and found agreement" from "compared none".
+The recorded `config_sha256` also moves to the current one. The two configurations differ only in
+the key name `quality_tolerance_kg_m3` becoming `quality_tolerance_mg_L` for an identical value,
+which is the unit-label correction, so nothing numerical turns on it.
+
 The comparison has two halves with different reproducibility. The **full-library** half is live: the
 corrected arm is read from `baseline_cache/baseline.npz` — the cache the rest of the pipeline
 actually consumes, so this checks the stored artifact rather than a fresh copy of it — and only the
@@ -3103,3 +3116,62 @@ recorded here so the discrepancy is not silent, which is the point of writing it
 paying for it twice.
 
 Outputs: `baseline_cache/step15_unit_equivalence.json`.
+
+---
+
+## Step 16 — is the metric-specific shortlist result an artefact of one assessment window?
+
+Appendix A records that the cumulative-deficit and water-age criteria are never satisfied inside the
+168 h horizon. The risk field is therefore **not** warm-up converged at 120 h, even though the
+concentration field the calibration uses is. Every shortlist comparison in Section 3.6.2 is
+nevertheless computed on the single 120-168 h window.
+
+A shared window cancels the horizon drift **common** to the perturbed and reference arms, so the
+objection "the risk field has not converged, therefore the comparison is invalid" does not follow.
+What a shared window does *not* establish is that the **relative** reordering survives a different
+window, and the duration shortlist is decided by near-ties, three nodes lying within 0.001 of one
+another in expected breach fraction, which is exactly the regime where a window shift can flip an
+ordering. So it was measured rather than hedged.
+
+**Design.** The calibration stays where the paper puts it, on the 120-168 h monitor series, because
+the three concentration criteria that justify that choice do pass at 120 h. Only the window over
+which D and A are integrated moves, to the adjacent 96-144 h cycle pair. Everything else follows
+Steps 8b and 8c: 30 noise realisations, the risk field taken as the median across them, top-6
+Jaccard and Spearman against the reference field **on the same window**. `baseline.npz` and
+`step8b_preds_kb*.npy` both store only the post-warm-up slice, so no cached array reaches back to
+96 h and all three candidate libraries were re-simulated (3 x 8192 forward runs, ~13 min).
+
+| perturbation | risk window (h) | rho_D | J6_D | rho_A | J6_A | deficit at least as well preserved |
+| ------------ | --------------- | ----- | ---- | ----- | ---- | ---------------------------------- |
+| k_b = -0.4 | 120-168 | 0.975 | 0.50 | 0.980 | 1.00 | yes |
+| k_b = -0.4 | 96-144 | 0.977 | 0.71 | 0.981 | 1.00 | yes |
+| k_b = -0.6 | 120-168 | 0.934 | 0.50 | 0.935 | 0.71 | yes |
+| k_b = -0.6 | 96-144 | 0.934 | 0.33 | 0.935 | 1.00 | yes |
+| bias node 15+0.10 | 120-168 | 0.999 | 0.71 | 1.000 | 0.71 | yes |
+| bias node 15+0.10 | 96-144 | 0.999 | 0.71 | 1.000 | 0.71 | yes |
+| bias node 231-0.10 | 120-168 | 1.000 | 1.00 | 1.000 | 1.00 | yes |
+| bias node 231-0.10 | 96-144 | 1.000 | 1.00 | 1.000 | 1.00 | yes |
+
+**The 120-168 h rows reproduce all eight published values** from `step8b_kb_sensitivity.json` and
+`step8c_bias_bynode.json` exactly, which is what licenses reading the 96-144 h rows at all.
+
+Findings:
+
+1. **Individual overlaps are window-dependent, as expected.** Under a 20 per cent overestimate of
+   bulk decay the duration top-6 Jaccard falls from 0.50 to 0.33 while the deficit top-6 rises from
+   0.71 to 1.00. Any single Jaccard value quoted in Section 3.6.2 is a property of that window.
+2. **The comparison between the two metrics is not.** The deficit shortlist is at least as well
+   preserved as the duration shortlist in all four arms on both windows, with no flips. The claim
+   Section 3.6.2 actually rests on is metric-specific, not window-specific.
+3. **The second window strengthens rather than weakens the contrast** in the k_b = -0.6 arm
+   (1.00 against 0.33). Scoping the Abstract and Conclusion to "within the fixed 120-168 h
+   assessment window" would therefore report the result as weaker than it was measured to be.
+4. **Whole-network Spearman is essentially window-invariant** (0.934 against 0.934, 0.975 against
+   0.977), consistent with the shortlist volatility coming from boundary near-ties rather than from
+   broad reordering.
+
+Bound: two windows, four perturbation arms, one threshold (0.2 mg/L) and one top-6 size. This shows
+the metric ordering is not an artefact of the paper's window choice; it does not establish window
+invariance in general.
+
+Outputs: `baseline_cache/step16_window_sensitivity.json`, Appendix Table G4.

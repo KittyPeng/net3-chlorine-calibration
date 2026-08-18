@@ -103,6 +103,7 @@ SECTIONS = {
     "Step 13": ["step13_known_answer.json"],
     "Step 14": ["step14_repeated_noise.json"],
     "Step 15": ["step15_unit_equivalence.json", "step15_full_regression.json"],
+    "Step 16": ["step16_window_sensitivity.json"],
     "Step 15b": ["step15_full_regression.json"],
 }
 
@@ -806,6 +807,7 @@ GUARDS = {
                             "EA_MIN": "truncated_at"},
     "step4d_displaced_robust.py": {"UPPER_CAP": "upper_cap_shift_applied"},
     "step6_noise_sensitivity.py": {"ESS_MIN": "sampling_limited"},
+    "step8c_bias_bynode.py": {"ESS_MIN": "sampling_limited"},
     "step13_known_answer.py": {"TOL_REL": "tolerance"},
 }
 # Constants matching this but absent from GUARDS are reported: a new guard must be registered, which

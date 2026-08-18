@@ -1,7 +1,7 @@
 {
   "weighting": "none \u2014 this step compares stored and re-simulated arrays and two git states; no ensemble is weighted",
   "purpose": "close the evidence chain for the three whole-repository claims Step 15's own artifact does not cover",
-  "config_sha256": "c97826acf77701e06874f6ffdd5bd42d10af6d0cb7d0fff6109e2153b1dc69d9",
+  "config_sha256": "607f2034a7204b3e50512e7ba597d290d8d469024b4d2af920c583201775e782",
   "full_library": {
     "n_candidates": 8192,
     "corrected_arm": "read from baseline_cache/baseline.npz \u2014 the cache the pipeline consumes",
@@ -11,6 +11,7 @@
       49,
       92
     ],
+    "n_candidates_compared": 8192,
     "C_all_max_abs_diff_mg_L": 1.1920928955078125e-07,
     "C_all_max_rel_diff": 2.328196826691007e-07,
     "RMSE_max_rel_diff": 7.243995032603403e-08,
@@ -18,7 +19,7 @@
     "loglik_iid_max_rel_diff": 1.4487989587351077e-07,
     "sobol_draws_sha256": "e37039a51375c7fe4343abee2524ff2503b7eda38b7867c01c4d9ca83f36613f",
     "sobol_draws_note": "both arms are driven by this same draw set, so the comparison isolates the configuration; the hash pins which design that was",
-    "runtime_s": 256.3
+    "runtime_s": 266.9
   },
   "artifact_regression": {
     "pre_commit": "64ec7d37fd0965cf6c28edfacae2c513bc4cced2",

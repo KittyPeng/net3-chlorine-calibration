@@ -147,7 +147,13 @@ if os.path.exists(OUTPATH):
 max_abs_C = max_rel_C = 0.0
 max_rel_RMSE = max_rel_LLC = max_rel_LLI = 0.0
 t0 = time.time()
-for i in range(0 if cached_a is None else N):
+# The condition used to read `0 if cached_a is None else N`, which is the reuse rule inverted: with
+# no cache to reuse it simulated nothing and reported a max difference of zero, and with a usable
+# cache it paid for 8192 EPANET runs and then discarded them at `part_a = cached_a`. A regression
+# that reports perfect agreement precisely when it has measured nothing is the worst possible
+# failure mode for this step, because zero is also what a passing result looks like.
+n_compared = 0 if cached_a is not None else N
+for i in range(n_compared):
     leg = legacy_field(i)
     cor = np.asarray(C_corr[i], dtype=np.float64)
     d = np.abs(cor - leg)
@@ -169,6 +175,11 @@ part_a = cached_a if cached_a is not None else {
     "corrected_arm": "read from baseline_cache/baseline.npz — the cache the pipeline consumes",
     "legacy_arm": "re-run live: initial_quality assigned raw, EPANET default tolerance 0.01",
     "C_all_shape": list(C_corr.shape),
+    # How many candidates were actually simulated and compared. Without it, a run that compared
+    # nothing and a run that found perfect agreement write the same five zeros, which is how the
+    # inverted reuse condition above stayed invisible. A reader can now divide the differences by
+    # this number's presence rather than trusting them.
+    "n_candidates_compared": int(n_compared),
     "C_all_max_abs_diff_mg_L": max_abs_C,
     "C_all_max_rel_diff": max_rel_C,
     "RMSE_max_rel_diff": max_rel_RMSE,
