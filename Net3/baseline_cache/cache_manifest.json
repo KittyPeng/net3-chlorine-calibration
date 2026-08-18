@@ -1,10 +1,10 @@
 {
-  "generated_utc": "2026-08-18T13:37:51+00:00",
+  "generated_utc": "2026-08-18T13:46:59+00:00",
   "git": {
-    "commit": "50b7b3fe662b2ee37ebe6121b67a3e50c7570070",
+    "commit": "52208f54f516c3b9b99a71b4f0ff46e2548b0127",
     "dirty": false,
     "dirty_files": [],
-    "tree_sha256": "8f478a3aa18ce3e0633ce1f1e23625f9d15cf6a06bf3feb192982004572f354f",
+    "tree_sha256": "7647d67d83e43b2f1b8d0a7b47defa2a510ef89bf97f519feca88717506d1c33",
     "uncommitted_diff_sha256": null,
     "repository": "the author's working repository, which is not the published one; these identifiers cannot be resolved from the release. Verify the release with provenance.py --check, which uses the per-file digests under `code`."
   },
