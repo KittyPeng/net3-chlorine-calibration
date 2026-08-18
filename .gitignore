@@ -12,3 +12,8 @@ Net3/baseline_cache/*.npz
 temp.inp
 temp.rpt
 temp.bin
+
+# EPANET scratch files from step15b, which runs with file_prefix="s15b"
+s15b.inp
+s15b.rpt
+s15b.bin
