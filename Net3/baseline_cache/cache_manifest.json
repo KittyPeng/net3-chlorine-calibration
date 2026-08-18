@@ -1,16 +1,16 @@
 {
-  "generated_utc": "2026-08-18T12:11:17+00:00",
+  "generated_utc": "2026-08-18T13:37:51+00:00",
   "git": {
-    "commit": "380eef352145d2ac27578aaa12868451136d12d5",
+    "commit": "50b7b3fe662b2ee37ebe6121b67a3e50c7570070",
     "dirty": false,
     "dirty_files": [],
-    "tree_sha256": "15b5b39311630ee89e418664e4a1f2dafde15de5492a1fd726cb4e9c2cdf7e27",
+    "tree_sha256": "8f478a3aa18ce3e0633ce1f1e23625f9d15cf6a06bf3feb192982004572f354f",
     "uncommitted_diff_sha256": null,
     "repository": "the author's working repository, which is not the published one; these identifiers cannot be resolved from the release. Verify the release with provenance.py --check, which uses the per-file digests under `code`."
   },
   "net3_inp": "models/net3_frozen/Net3.inp",
   "net3_inp_sha256": "ea3e825c4fef0b5cba47fb06301bc85253f18b6364dc96c44d9fb492c40faa52",
-  "baseline_npz_sha256": "3973e0b6aa377d66cdc8da7fe9c8aadd2442e4a9265932174ee6e35bcc5ff889",
+  "baseline_npz_sha256": null,
   "config": {
     "monitor_nodes": [
       "107",
@@ -75,7 +75,8 @@
       "step13_known_answer.py": "8452eda4801bd3ae2552e128e86a49a6359bb63a19008c120c607b016ce3d372",
       "step14_repeated_noise.py": "f459d34c88fd5551bf2401e5cc625c77d928824fa0eb839ce1b00e571f0d5421",
       "step15_unit_equivalence.py": "58ac6c1e617fd45ae47fd0ff1c47415ff8b83b9981364b881e4a6d27fb3397c7",
-      "step15b_full_regression.py": "fda023de2236ebe75c8fd46f9cdfb89a01f215253ffcab3cd130ed2e9c16c8e0",
+      "step15b_full_regression.py": "f81cc34ac3a8c1943ac823fa8522d6d33306516bea2eb2628fb6aa66ec346790",
+      "step16_window_sensitivity.py": "c484652177a38a69634fdfe095e4bede55f913cb15a43b746e20c4d132e151dc",
       "step1_freeze_baseline.py": "cd84fb37081364263e5400a771c6993fe097377ac4122a1119bf867d16c0de55",
       "step3_threshold_sensitivity.py": "8abd4e3822eb9424cd7f54e0b324aae9d549a916a14481ac2b30aa6114508275",
       "step4_displaced_prior.py": "7f859a1a8a7a5c82adeaa38cdc84b2a97d1c01e6261d691b0e6963ccd4b35f20",
@@ -96,14 +97,14 @@
       "step8d_sensor_drift.py": "f1f3c70db4f6d57b7d5904c91eb5af5989471838459babb13a5d550746d92c7b",
       "step9_zeroclip.py": "67b5af39f3a81ea14bb2efcb0073d02bbe5ec81113376282877efe1be668a81c"
     },
-    "step_scripts_combined_sha256": "59c7871271bb732114b683b95e71dda0b0ea0eae5bd31ed9b7c159ee32732b3f",
+    "step_scripts_combined_sha256": "cb6d130472df0a8c35e76c9480b9fe1f912b8840ee8f7654857acbbff68bed2f",
     "presentation_sha256": {
       "paper_figs.py": "25ae9641e446189251f1a66a8a198a6736d139e66eae64b03f31c9c2424facf5",
-      "appendix_tables.py": "cf35b8673392caaefe07102b564d0826cab9f15746ccd7bcab92a06f5be0a6a3"
+      "appendix_tables.py": "554051095b7c2621b65c7ef9364ee92c66fb52b01cf460d201e93e879a63931e"
     },
     "generated_tables_sha256": {
       "tables.md": "459f1ddc4666dec3b1be8b84ccac9e69b125c83c9a39faf167e172b7721a3b34",
-      "appendix_tables.md": "478784d2ad85c2ea9d267792a20c1c3e214a6349e7b89f4621c59ae166f853a7"
+      "appendix_tables.md": "ff84fdb40d51069ccf4ef5c94381e1ca16ef6d45d64b7e38be7ed7b00da87dbc"
     },
     "paper_figures_sha256": {
       "fig1_study_design.png": "639745b47b66a51fac03d410665a0077182d369808c0e2874b5c056dc1e5794e",
